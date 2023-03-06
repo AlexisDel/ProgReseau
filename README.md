@@ -26,7 +26,7 @@ Afin de réaliser ce projet vous serez en binôme. Afin de réaliser ce projet l
 
 Le Raspberry Pi est un petit ordinateur capable de faire tourner un OS complet tel que linux, il est donc possible par exemple de faire tourner des programmes python dessus. Le Raspberry Pi 4 (celui que vous utiliserez dans le cadre de ce projet) est doté d'une puce WiFi qui va vous permettre de le contrôler à distance.
 
-<img title="" src="images/rpi4.png" alt="drawing" width="339" data-align="center">
+<img title="" src="documentation/images/rpi4.png" alt="drawing" width="339" data-align="center">
 
 - Le premier Raspberry sera monté dans le robot.
 
