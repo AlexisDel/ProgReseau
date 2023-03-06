@@ -34,7 +34,7 @@ Le Raspberry Pi est un petit ordinateur capable de faire tourner un OS complet t
 
 Il vous sera aussi fourni un kit Rasptank, ce kit inclut toutes les pièces permettant de construire un petit robot sur chenille téléguidé.
 
-<img title="" src="images/rasptank.png" alt="" width="327" data-align="center">
+<img title="" src="documentation/images/rasptank.png" alt="" width="327" data-align="center">
 
 ## Objectifs
 
