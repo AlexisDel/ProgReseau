@@ -61,7 +61,7 @@ Ici vous êtes libres de faire ce que vous voulez, votre télécommande doit cep
 
 - Visualiser le stream de la webcam
 
-<img title="" src="images/controller_tk.png" alt="" width="555" data-align="center">
+<img title="" src="documentation/images/controller_tk.png" alt="" width="555" data-align="center">
 
 ### Informations liées à la documentation
 
