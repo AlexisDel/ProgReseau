@@ -106,4 +106,4 @@ Voici le schéma du montage final
 
 ![](../images/final_wiring.png)
 
-:information_source: Le GPIO sur lequel est connecté le récepteur est le GPIO 23 et celui sur lequel est connecté l'émetteur est le GPIO 22. Vous pouvez inverser les deux si vous voulez, mais souvenez vous de la manière dont vous les branchez, car vous aurez besoin dans le code plus tard.
+:information_source: Le GPIO sur lequel est connecté le récepteur est le GPIO 23 et celui sur lequel est connecté l'émetteur est le GPIO 22. Vous pouvez inverser les deux si vous voulez, mais souvenez vous de la manière dont vous les branchez, car vous en aurez besoin dans le code plus tard.
