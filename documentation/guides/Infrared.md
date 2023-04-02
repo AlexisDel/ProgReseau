@@ -12,7 +12,7 @@ Le problème de la méthode décrite ci-dessus, c'est qu'elle est sensible à to
 
 ![](../images/perturbation_ir.png)
 
-On aimerait donc que le récepteur ne reçoivent que la lumière infrarouge émise par l'émetteur, afin de créer un canal de communication entre l'émetteur et le récepteur.
+On aimerait donc que le récepteur ne reçoive que la lumière infrarouge émise par l'émetteur, afin de créer un canal de communication entre l'émetteur et le récepteur.
 
 ![](../images/perturbation_ir2.png)
 
@@ -20,11 +20,11 @@ Cela est rendu possible par l'utilisation d'une porteuse. Dans notre cas, la por
 
 <img title="" src="../images/carrier.png" alt="" data-align="inline" width="676">
 
-Maintenant on peut dire à notre récepteur "d'écouter" seulement les ondes infrarouge qui ont une fréquence de 38kHz.
+Maintenant on peut dire à notre récepteur "d'écouter" seulement les ondes infrarouges qui ont une fréquence de 38kHz.
 
 ### NEC
 
-Maintenant, que l'on a un canal de communication, il faut que l'on définisse le protocole que l'on va utiliser pour cette communication. Ce protocole, c'est NEC, il a été inventé par la société du même nom dans les années 80. C'est aujourd'hui le protocole le plus utilisé par les télécommandes infrarouge.
+Maintenant, que l'on a un canal de communication, il faut que l'on définisse le protocole que l'on va utiliser pour cette communication. Ce protocole, c'est NEC, il a été inventé par la société du même nom dans les années 80. C'est aujourd'hui le protocole le plus utilisé par les télécommandes infrarouges.
 
 Le protocole NEC utilise un codage par distance d'impulsion, une impulsion correspond à allumer la LED infrarouge pendant 562.5µs.
 
