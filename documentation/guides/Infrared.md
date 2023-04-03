@@ -37,9 +37,3 @@ Le protocole NEC utilise un codage par distance d'impulsion, une impulsion corre
 Le protocole NEC défini aussi d'autres normes qu'on ne va pas respecter dans le cadre de notre projet, voici un exemple de trame NEC.
 
 ![](../images/NECMessageFrame.png)
-
-### Code de Hamming
-
-
-
-## Implémentation
