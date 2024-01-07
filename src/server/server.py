@@ -148,7 +148,7 @@ if __name__ == "__main__":
     scores = {"RED":0, "BLUE":0}
 
     client = mqtt.Client()
-    client.connect("10.3.141.1")
+    client.connect("192.168.0.100")
 
     client.subscribe("init")
     client.subscribe("tanks/+/flag")

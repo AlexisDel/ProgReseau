@@ -1,72 +1,60 @@
-# Projet M1 IoT
+# Projet Programmation Réseau M1 IoT
 
 ## Présentation
 
-Le but de ce projet est de construire et programmer un petit robot afin de s'affronter lors de partie de *World of Rasptank*.
+Ce projet a pour objectif de programmer un petit robot pour participer au jeu *World of Rasptank*.
 
 ### *World of Rasptank*
 
-Dans ce jeu, il y a 2 équipes, une équipe bleue et une équipe rouge, les binômes sont répartis de manière équitable dans chacune des équipes. Chaque équipe possède une base. Le but est d'aller capturer le drapeau se trouvant au milieu du terrain et de le ramener dans sa base.
+<p align="center">
+  <img src="documentation/images/world_of_rasptank.png">
+</p>
 
-Pour capturer le drapeau, il vous suffit de rester 5 secondes dans la zone de capture. 
+Ce jeu implique deux équipes : une équipe bleue et une équipe rouge. Les participants sont répartis équitablement entre ces deux équipes. Chaque équipe dispose d'une base. Le but est de capturer le drapeau placé au centre du terrain et de le rapporter à sa base.
 
-:warning: Attention :
+Pour capturer le drapeau, il faut rester 5 secondes dans la zone de capture.
 
-- Si vous êtes détenteur du drapeau et que vous vous faites tirer dessus, vous perdrez le drapeau, celui-ci est alors retourné à la zone de capture.
-- Si vous êtes en train de capturer le drapeau que vous vous faites tirer dessus, la capture sera annulée, il vous faudra alors sortir de la zone et y retourner pour commencer une nouvelle capture.
+:warning: **Attention** :
 
-Pour déposer votre drapeau dans votre base, il vous suffit de vous rapprocher assez près de la caméra présente dans votre base. Une équipe remporte la partie si elle ramène 3 drapeaux dans son camps.
+- Si vous portez le drapeau et que vous êtes touché, vous le perdez. Le drapeau retourne alors automatiquement à la zone de capture.
+- Si vous êtes touché pendant la capture du drapeau, celle-ci est annulée. Vous devrez sortir de la zone puis y re-entrer pour recommencer la capture.
+
+Pour déposer le drapeau dans votre base, scannez le QR code présent dans celle-ci. Une équipe gagne la partie en rapportant trois drapeaux dans son camp.
 
 ## Consignes
 
-Afin de réaliser ce projet vous serez en binôme. Afin de réaliser ce projet le matériel suivant vous ait fourni:
+Vous travaillerez en binôme et disposerez d'un "Rasptank", un petit robot chenillé piloté via un Raspberry Pi.
 
-- 2 Raspberry Pi 4
-- 1 kit Rasptank
-
-Le Raspberry Pi est un petit ordinateur capable de faire tourner un OS complet tel que linux, il est donc possible par exemple de faire tourner des programmes python dessus. Le Raspberry Pi 4 (celui que vous utiliserez dans le cadre de ce projet) est doté d'une puce WiFi qui va vous permettre de le contrôler à distance.
-
-<img title="" src="documentation/images/rpi4.png" alt="drawing" width="339" data-align="center">
-
-- Le premier Raspberry sera monté dans le robot.
-
-- le deuxième quant à lui vous servira afin de développer le code du robot (vous pouvez aussi utiliser votre propre PC). Il pourra aussi servir de télécommande afin de contrôler le robot par la suite.
-
-Il vous sera aussi fourni un kit Rasptank, ce kit inclut toutes les pièces permettant de construire un petit robot sur chenille téléguidé.
-
-<img title="" src="documentation/images/rasptank.png" alt="" width="327" data-align="center">
+![Rasptank](documentation/images/rasptank.png)
 
 ## Objectifs
 
-La séance d'évaluation sera une partie de *World of Rasptank*, il est donc impératif que vous ayez un robot opérationnelle à la dernière séance. Voici une liste exhaustive de tous ce que vous devez implémenter afin que votre robot puisse participer à une partie de  *World of Rasptank* : 
+L'évaluation finale consistera en une partie de *World of Rasptank*. Il est donc essentiel d'avoir un robot opérationnel pour la dernière séance. Voici les fonctionnalités à implémenter pour que votre robot puisse participer :
 
 #### Rasptank
 
-* Recevoir des commandes de la télécommande
-- Se déplacer dans toutes les directions
+- Contrôle à distance.
+- Déplacement dans toutes les directions.
+- Tir via un émetteur infrarouge.
+- Réception de tirs par un récepteur infrarouge.
+- Détection de l'entrée dans la zone de capture (zone blanche) grâce au module suiveur de ligne.
+- Streaming en temps réel du flux vidéo de la webcam*.
 
-- Tirer via l'émetteur infrarouge
-
-- Recevoir les tirs via le récepteur infrarouge
-
-- Détecter quand il entre dans la zone de capture (zone blanche) via le module suiveur de ligne
-
-- Streamer en temps réelle le flux vidéo issu de la webcam
+(*): Non obligatoire, mais recommandé.
 
 #### Télécommande
 
-Ici vous êtes libres de faire ce que vous voulez, votre télécommande doit cependant permettre 2 choses:
+Vous avez carte blanche concernant la télécommande, mais elle doit permettre au moins :
 
-- Envoyer des commandes au Rasptank (déplacement, tirs, ...)
+- L'envoi de commandes au Rasptank (déplacements, tirs, etc.).
+- La visualisation du stream de la webcam.
 
-- Visualiser le stream de la webcam
+![Télécommande](documentation/images/controller_tk.gif)
 
-<img title="" src="documentation/images/controller_tk.png" alt="" width="555" data-align="center">
+### Documentation
 
-### Informations liées à la documentation
+Sur le Git, vous trouverez des guides pour chaque partie du projet, offrant des explications sur le code fourni et des suggestions pour développer les fonctionnalités requises.
 
-Vous trouverez sur le Git des guides pour chaque partie du projet. Dans ces guides vous trouverez des explications concernant le code fournis ou des pistes pour les fonctionnalités à implémenter. 
+Toutes les approches présentées sont viables. Vous avez la liberté de choisir celle qui vous semble la plus appropriée, ou même d'adopter une méthode non décrite dans le guide.
 
-Toutes les options présentées sont bonnes et vous pouvez choisir celle qui vous plait le plus, ou même quelque chose qui n'est pas présenté dans le guide si vous le souhaitez. 
-
-Les choix d'implémentation que j'ai fait lors de la conception de ce projet sont notés par une :star:. Si vous n'avez pas de préférence quant à la manière d'implémenter une fonctionnalité, je vous conseille de choisir l'option :star:, je pourrais ainsi plus facilement vous aider si vous avez un problème.
+Les choix d'implémentation que je recommande sont signalés par une étoile :star:. Si vous ne privilégiez pas une méthode en particulier, suivre ces recommandations peut être une bonne option.
