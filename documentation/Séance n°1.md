@@ -13,15 +13,20 @@
 ## 1. Installation de Raspberry Pi OS
 Référez-vous à : *Lesson 3 Installing and Configuring Raspberry Pi System*, Sections 3.1 - 3.6 (pages 1 à 19)
 
+![](images/sd_slot.jpeg)
+
+Pour insérer la carte SD, placez-la dans l'emplacement prévu à l'aide d'une pince.
+
 ## 2. Installation des librairies nécessaires au projet
-Récupérez le dossier de ressources et son contenu (disponible sur GitHub). Vous devriez avoir les fichiers suivants :
+Récupérez le dossier src du rasptank et son contenu [disponible sur GitHub](../src/rasptank/). Vous devriez avoir les fichiers suivants :
 
 ```
 ├── pi
     ├── home
-        ├── ressources
+        ├── rasptank
             ├── setup.py
             ├── requirements.txt
+            ├── InfraLib.txt
             └── test.py
 ```
 

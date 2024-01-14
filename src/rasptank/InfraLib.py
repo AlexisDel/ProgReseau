@@ -219,9 +219,10 @@ def IRBlast(tankID, projectile_type, verbose=False):
 
 	msg = (str(bin(projectile_id))[2:] + str(bin(tankID))[2:])
 	if verbose:
-		print("send :", msg)
+		print("send :", encodeMsg(msg))
 	IR(23, "NEC", dict()).send_code(encodeMsg(msg)+"0")
 	# Last bit not receive so we add an artificial one for the actual last bit to be received
+	
 	return True
 
 #####################################
@@ -303,7 +304,8 @@ def detectError(data):
 def signalToBinary(signal):
 	return "".join(map(lambda signal: "1" if signal[1] > 1000 else "0", filter(lambda signal: signal[0] == 1, signal)))
 
-def getSignal(channel, client, verbose=False):
+def getSignal(channel, verbose=False):
+	shooter = None
 	r = 6
 
 	value = 0
@@ -343,7 +345,10 @@ def getSignal(channel, client, verbose=False):
 		previousVal = value
 		value = GPIO.input(channel)
 
-	data = list(map(int, signalToBinary(command)[1:]))
+	data = list(map(int, signalToBinary(command)[2:]))
+	if verbose:
+		if data != []:
+			print("r : " + ''.join(str(num) for num in data))
 	if len(data) == 64:
 		correction = detectError(data)
 		if(correction!=0):
@@ -354,4 +359,4 @@ def getSignal(channel, client, verbose=False):
 		data = removeRedundantBits(data, r)
 
 		shooter = hex(int(str(''.join(str(x) for x in data)),2))
-		client.publish("tanks/"+hex(uuid.getnode())+"/shots", "SHOT_BY "+shooter)
+		return shooter
