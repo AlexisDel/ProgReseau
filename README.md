@@ -23,7 +23,7 @@ Pour déposer le drapeau dans votre base, scannez le QR code présent dans celle
 
 ## Consignes
 
-Vous travaillerez en binôme et disposerez d'un "Rasptank", un petit robot chenillé piloté via un Raspberry Pi.
+Vous travaillerez en binôme ou trinôme et disposerez d'un "Rasptank", un petit robot chenillé piloté via un Raspberry Pi.
 
 ![Rasptank](documentation/images/rasptank.png)
 
@@ -36,7 +36,7 @@ L'évaluation finale consistera en une partie de *World of Rasptank*. Il est don
 - Contrôle à distance.
 - Déplacement dans toutes les directions.
 - Tir via un émetteur infrarouge.
-- Réception de tirs par un récepteur infrarouge.
+- Réception de tirs par un récepteur infrarouge entraînant l'immobilisation du tank pendant une durée de 2 secondes et le clignotement des LEDs en orange.
 - Détection de l'entrée dans la zone de capture (zone blanche) grâce au module suiveur de ligne.
 - Streaming en temps réel du flux vidéo de la webcam*.
 
@@ -49,9 +49,7 @@ Vous avez carte blanche concernant la télécommande, mais elle doit permettre a
 - L'envoi de commandes au Rasptank (déplacements, tirs, etc.).
 - La visualisation du stream de la webcam.
 
-<kbd>
-<img src="documentation/images/controller_tk.gif">
-</kbd>
+![](documentation/images/controller_tk.gif)
 
 ### Documentation
 
