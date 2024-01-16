@@ -54,7 +54,7 @@ for x in range(3):
 commands_2 = [
     "sudo pip3 install RPi.GPIO",
     "sudo apt-get -y install libqtgui4 libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev libqt4-test",
-    "sudo pip3 install -r /home/pi/rasptank/requirements.txt"
+    "sudo pip3 install -r /home/pi/ProgReseau/src/rasptank/requirements.txt"
 ]
 
 mark_2 = 0
