@@ -8,16 +8,41 @@
 - Mise en place de l'environnement de développement via SSH
 - Début de la programmation
 
-:warning: **Note** : Les "lessons" font référence aux tutoriels d'Adeept disponibles [ici](https://www.adeept.com/video/static1/itemsfile/901RaspTank%20Tutorials.zip), trouvables dans le dossier "*2 Basic course*".
+:warning: **Note** : Les "lessons" font référence aux tutoriels d'Adeept disponibles [ici](https://www.adeept.com/video/static1/itemsfile/901RaspTank%20Tutorials.zip), trouvables dans le dossier "*2 Basic course*"
 
 ## 1. Installation de Raspberry Pi OS
-Référez-vous à : *Lesson 3 Installing and Configuring Raspberry Pi System*, Sections 3.1 - 3.6 (pages 1 à 19)
 
-![](images/sd_slot.jpeg)
+- Téléchargez [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
+- Flashez la carte SD :
+    - Choose Device : Raspberry Pi 4  
+    ![Raspberry Pi Imager](/documentation/images/choose_device.png)
+    - Choose OS : Raspberry Pi OS (Legacy, 32-bit)  
+    ![Raspberry Pi Imager](/documentation/images/choose_os.png)
+    - Choose Storage :  
+    ![Raspberry Pi Imager](/documentation/images/choose_storage.png)
+    - Ensuite, cliquez sur *Next* :
+        - Would you like to apply OS customization settings? : No
+        - All existing data on '...' will be erased? : Yes
 
-Pour insérer la carte SD, placez-la dans l'emplacement prévu à l'aide d'une pince.
+- Insérez la carte SD dans le Raspberry Pi  
+![](images/sd_slot.png)
 
-## 2. Installation des librairies nécessaires au projet
+:white_check_mark: Vous pouvez maintenant allumer le Raspberry Pi en branchant l'alimentation et le câble HDMI.
+
+## 2. Configuration du Raspberry Pi
+
+- Ouvrez la configuration du Raspberry Pi  
+![](images/select_rpi_config.png)
+
+- Activez l'I2C et le SSH  
+![](images/rpi_config.png)
+
+:white_check_mark: Vous pouvez maintenant redémarrer le Raspberry Pi
+
+## 3. Installation des librairies nécessaires au projet
+
+:warning: Connectez-vous à un réseau Wifi avant de poursuivre
+
 Récupérez le dossier src du rasptank et son contenu [disponible sur GitHub](../src/rasptank/). Vous devriez avoir les fichiers suivants :
 
 ```
@@ -30,16 +55,17 @@ Récupérez le dossier src du rasptank et son contenu [disponible sur GitHub](..
             └── test.py
 ```
 
+Vous pouvez récupérer les fichiers via :
+
+```
+git clone https://github.com/AlexisDel/ProgReseau
+```
+
 Exécutez :
 ```
-sudo python3 /home/pi/ressources/setup.py
+sudo python3 /home/pi/ProgReseau/src/rasptank/setup.py
 ```
-## 3. Test des fonctionnalités du Rasptank
-Exécutez :
-```
-sudo python3 /home/pi/ressources/test.py
-```
-Suivez ensuite les instructions affichées à l'écran.
+Le Raspberry va redémarrer une fois l'installation terminée
 
 ## 4. Mise en place de l'environnement de développement via SSH
 
@@ -53,7 +79,7 @@ Mot de passe : `rasptank`
 
 Voir : [Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh)
 
-**Note** : Assurez-vous d'activer le SSH sur le Raspberry Pi.
+**Note** : Assurez-vous d'activer le SSH sur le Raspberry Pi
 
 ## 5. Commencer à programmer
 
@@ -65,4 +91,4 @@ Vous pouvez maintenant commencer à programmer votre robot. Suivez les leçons d
 - *Lesson 9 How to Take a Photo with Raspberry Pi*
 - *Lesson 13 How to Use the Tracking Module*
 
-:warning: Ne pas toucher au Servos pour l'instant.
+:warning: Ne pas toucher au Servos pour l'instant
