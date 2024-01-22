@@ -4,7 +4,6 @@
 - Configuration du robot :
     - Installation de Raspberry Pi OS
     - Installation des librairies nécessaires au projet
-- Test des fonctionnalités du robot (via le script fourni)
 - Mise en place de l'environnement de développement via SSH
 - Début de la programmation
 
@@ -75,7 +74,7 @@ SSID : `TP-Link_AC96`
 
 Mot de passe : `rasptank`
 
-:warning: Ce réseau n'a pas d'accès à Internet :confused:. Vous pouvez également utiliser le partage de connexion de votre téléphone.
+Ce réseau n'a pas d'accès à Internet :confused:. Vous pouvez également utiliser le partage de connexion de votre téléphone.
 
 Voir : [Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh)
 
@@ -88,7 +87,8 @@ Vous pouvez maintenant commencer à programmer votre robot. Suivez les leçons d
 - *Lesson 6 How to Control DC Motor*
 - *Lesson 7 How to Control WS2812 LED*
 - *Lesson 8 How to Control the Ultrasonic Module*
-- *Lesson 9 How to Take a Photo with Raspberry Pi*
 - *Lesson 13 How to Use the Tracking Module*
 
 :warning: Ne pas toucher au Servos pour l'instant
+
+:information_source: Pour commencer à programmer le robot, il est recommandé de créer des fonctions de base afin de contrôler votre robot, telles que `move()`, `enableLED()`, etc. Cela vous permettra ensuite d'intégrer facilement la communication avec la télécommande. Par exemple, si je reçois `MoveLeft` de la télécommande, alors j'appelle `move('Left')`.
