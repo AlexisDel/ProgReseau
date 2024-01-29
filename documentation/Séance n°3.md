@@ -42,11 +42,22 @@ Le protocole NEC définit également d'autres normes, mais nous ne les respecter
 
 ## 1. Émission de Tir
 
-*Contenu à venir.*
+````python
+InfraLib.IRBlast(uuid.getnode(), "LASER")
+````
 
 ## 2. Réception d'un Tir
 
-*Contenu à venir.*
+````python
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    IR_RECEIVER = 15
+    GPIO.setup(IR_RECEIVER, GPIO.IN)
+        
+    while True:
+        received = InfraLib.getSignal(IR_RECEIVER)
+        print(received)
+````
 
 ## 3. Communication avec le serveur central
 
