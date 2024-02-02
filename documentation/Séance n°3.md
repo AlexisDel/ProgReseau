@@ -59,6 +59,24 @@ InfraLib.IRBlast(uuid.getnode(), "LASER")
         print(received)
 ````
 
+Version utilisant les interruptions :
+
+````python
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+
+    IR_RECEIVER = 15
+    GPIO.setup(IR_RECEIVER, GPIO.IN)
+    GPIO.add_event_detect(IR_RECEIVER, GPIO.FALLING, callback=lambda x: InfraLib.getSignal(IR_RECEIVER, client), bouncetime=100)
+````
+:warning: Si vous utilisez cette version, il faut modifier la fonction `getSignal` dans InfraLib et envoyer le message MQTT directement depuis la fonction `getSignal`.
+
+Les corrections apportées sont :
+- "intéruptions" corrigé en "interruptions"
+- "modfier" corrigé en "modifier"
+- "envoyé" corrigé en "envoyer" pour accorder le verbe correctement avec le sujet.
+- Correction de la majuscule en début de phrase pour "Il faut" en "il faut".
+
 ## 3. Communication avec le serveur central
 
 Afin de pouvoir participer à une partie de *World of Rasptank*, vous devez communiquer avec le serveur central. Ce dernier agit comme le maître de jeu, indiquant par exemple que vous avez touché un adversaire, capturé le drapeau, etc. La communication avec ce serveur est définie par un protocole détaillé dans ci-dessous.
