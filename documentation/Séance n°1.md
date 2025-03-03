@@ -42,29 +42,24 @@
 
 :warning: Connectez-vous à un réseau Wifi avant de poursuivre
 
-Récupérez le dossier src du rasptank et son contenu [disponible sur GitHub](../src/rasptank/). Vous devriez avoir les fichiers suivants :
+1. Créez un environnement virtuel Python nommé "rasptank" :
 
-```
-├── pi
-    ├── home
-        ├── rasptank
-            ├── setup.py
-            ├── requirements.txt
-            ├── InfraLib.txt
-            └── test.py
-```
+   ```bash
+   python3 -m venv rasptank
+   ```
 
-Vous pouvez récupérer les fichiers via :
+2. Activez l'environnement virtuel :
 
-```
-git clone https://github.com/AlexisDel/ProgReseau
-```
+   ```bash
+   source rasptank/bin/activate
+   ```
 
-Exécutez :
-```
-sudo python3 /home/pi/ProgReseau/src/rasptank/setup.py
-```
-Le Raspberry va redémarrer une fois l'installation terminée
+3. Installez les bibliothèques suivantes :
+
+   ```bash
+   pip3 install adafruit-circuitpython-pca9685
+   pip3 install adafruit-circuitpython-motorkit
+   ```
 
 ## 4. Mise en place de l'environnement de développement via SSH
 
@@ -76,19 +71,19 @@ Mot de passe : `rasptank`
 
 Ce réseau n'a pas d'accès à Internet :confused:. Vous pouvez également utiliser le partage de connexion de votre téléphone.
 
-Voir : [Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh)
+Si besoin, voir : [Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh)
 
 **Note** : Assurez-vous d'activer le SSH sur le Raspberry Pi
 
 ## 5. Commencer à programmer
 
-Vous pouvez maintenant commencer à programmer votre robot. Suivez les leçons d'Adeept pour apprendre à utiliser les différents composants du robot :
+Vous pouvez maintenant commencer à programmer votre robot, pour cela inspirez-vous du code disponible dans les [tutoriels Adeept V2.0](https://www.adeept.com/learn/detail-34.html) pour chaque composant du robot :
 
 - *Lesson 6 How to Control DC Motor*
 - *Lesson 7 How to Control WS2812 LED*
 - *Lesson 8 How to Control the Ultrasonic Module*
 - *Lesson 13 How to Use the Tracking Module*
 
-:warning: Ne pas toucher au Servos pour l'instant
+Pour les servos voir: [Adafruit CircuitPython PCA9685](https://github.com/adafruit/Adafruit_CircuitPython_PCA9685)
 
 :information_source: Pour commencer à programmer le robot, il est recommandé de créer des fonctions de base afin de contrôler votre robot, telles que `move()`, `enableLED()`, etc. Cela vous permettra ensuite d'intégrer facilement la communication avec la télécommande. Par exemple, si je reçois `MoveLeft` de la télécommande, alors j'appelle `move('Left')`.
