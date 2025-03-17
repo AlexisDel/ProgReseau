@@ -1,31 +1,9 @@
 # Séance n°2
 
 ### Objectifs :
-- Installation de Tailscale
 - Détection de la zone de capture via le module suiveur de ligne.
 - Programmation de la télécommande.
 
-## Installation de tailscale :
-
-Veuillez connecter votre PC ainsi que le robot aux réseaux WiFi `eduroam` ou `eduspot`.
-
-1. Créez un compte tailscale : https://login.tailscale.com/start
-2. Installez tailscale sur votre PC : https://tailscale.com/download
-3. Installez tailscale sur votre robot et récupérez son adresse IP :
-```
-sudo apt-get install apt-transport-https
-curl -fsSL https://pkgs.tailscale.com/stable/raspbian/bullseye.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
-curl -fsSL https://pkgs.tailscale.com/stable/raspbian/bullseye.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
-sudo apt update
-sudo apt install tailscale
-sudo tailscale up
-sudo tailscale up --ssh
-tailscale ip -4
-
-```
-4. Connectez-vous à votre robot en SSH via l'IP obtenue.
-
-Référence: https://tailscale.com/learn/how-to-ssh-into-a-raspberry-pi
 
 ## 1. Détection de la Zone de Capture
 
