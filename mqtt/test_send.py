@@ -33,7 +33,7 @@ def publish(client):
     n = 1
     while n != 0:
         time.sleep(1)
-        n = int(input("VOtre chiffre (0 pour sortir) : "))
+        n = int(input("1 - left, 2 - right, 3 - forward (0 pour sortir) : "))
         msg = f"{n}"
         result = client.publish(topic, msg)
         # result: [0, 1]
