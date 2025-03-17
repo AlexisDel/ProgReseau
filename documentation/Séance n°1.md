@@ -67,7 +67,7 @@
 
 SSID : `TP-Link_AC96`
 
-Mot de passe : `rasptank`
+Mot de passe : `51313296`
 
 Ce réseau n'a pas d'accès à Internet :confused:. Vous pouvez également utiliser le partage de connexion de votre téléphone.
 
@@ -86,4 +86,12 @@ Vous pouvez maintenant commencer à programmer votre robot, pour cela inspirez-v
 
 Pour les servos voir: [Adafruit CircuitPython PCA9685](https://github.com/adafruit/Adafruit_CircuitPython_PCA9685)
 
-:information_source: Pour commencer à programmer le robot, il est recommandé de créer des fonctions de base afin de contrôler votre robot, telles que `move()`, `enableLED()`, etc. Cela vous permettra ensuite d'intégrer facilement la communication avec la télécommande. Par exemple, si je reçois `MoveLeft` de la télécommande, alors j'appelle `move('Left')`.
+:information_source: Pour commencer à programmer le robot, il est recommandé de créer des fonctions de base afin de contrôler votre robot, telles que move(), enableLED(), etc. Cela vous permettra ensuite d'intégrer facilement la communication avec la télécommande. Par exemple, si le robot reçoit MoveLeft de la télécommande, alors il appelle move('Left').
+
+Voici une liste des fonctionnalités que vous pouvez commencer à implémenter :
+
+- Contrôler les moteurs pour les déplacements du robot.
+- Pouvoir allumer les LEDs (quand vous vous faites tirer dessus).
+- Détecter le passage d'une zone noire à une zone blanche, pour la zone de capture du drapeau.
+
+Le but n'est pas de suivre chaque tutoriel à la lettre, mais plutôt de comprendre comment réaliser des actions spécifiques, comme allumer les LEDs d'une certaine couleur ou faire avancer le robot. Cela vous permettra de créer votre programme robot.py, qui sera le programme exécuté sur votre robot pour le contrôler.
