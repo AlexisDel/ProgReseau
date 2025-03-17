@@ -143,7 +143,7 @@ if __name__ == '__main__':
 	try:
 		if len(sys.argv)>2:
 			setup()
-			move(sys.argv[0],sys.argv[1],sys.argv[2],0.6 if len(sys.argv) < 4 else sys.argv[4])
+			move(int(sys.argv[0]),sys.argv[1],sys.argv[2],0.6 if len(sys.argv) < 4 else float(sys.argv[4]))
 			time.sleep(2)
 			motorStop()
 			destroy()
