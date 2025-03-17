@@ -7,7 +7,7 @@ import random
 from paho.mqtt import client as mqtt_client
 
 
-broker = 'broker.emqx.io'
+broker = '192.168.0.125'
 port = 1883
 topic = "python/ctrlrobot"
 # Generate a Client ID with the subscribe prefix.
@@ -23,7 +23,7 @@ def connect_mqtt() -> mqtt_client:
         else:
             print("Failed to connect, return code %d\n", rc)
 
-    client = mqtt_client.Client(mqtt_client.CallbackAPIVersion.VERSION1,client_id)
+    client = mqtt_client.Client(client_id)
     # client.username_pw_set(username, password)
     client.on_connect = on_connect
     client.connect(broker, port)
