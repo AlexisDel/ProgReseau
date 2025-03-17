@@ -33,7 +33,7 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        if "1" in msg:
+        if "1" in msg.payload.decode():
             os.system("python3 adeept_rasptank/server/move.py")
 
     client.subscribe(topic)
