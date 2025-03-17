@@ -30,17 +30,18 @@ def connect_mqtt():
 
 def publish(client):
     msg_count = 1
-    
-    time.sleep(1)
-    n = int(input("VOtre chiffre : "))
-    msg = f"{n}"
-    result = client.publish(topic, msg)
-    # result: [0, 1]
-    status = result[0]
-    if status == 0:
-        print(f"Send `{msg}` to topic `{topic}`")
-    else:
-        print(f"Failed to send message to topic {topic}")
+    n = 1
+    while n != 0:
+        time.sleep(1)
+        n = int(input("VOtre chiffre (0 pour sortir) : "))
+        msg = f"{n}"
+        result = client.publish(topic, msg)
+        # result: [0, 1]
+        status = result[0]
+        if status == 0:
+            print(f"Send `{msg}` to topic `{topic}`")
+        else:
+            print(f"Failed to send message to topic {topic}")
     
 
 
