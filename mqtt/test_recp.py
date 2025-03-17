@@ -3,7 +3,7 @@
 # python 3.11
 
 import random
-
+import os
 from paho.mqtt import client as mqtt_client
 
 
@@ -33,6 +33,8 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+        if msg == "1":
+            os.system("python3 adeept_rasptank/server/move.py")
 
     client.subscribe(topic)
     client.on_message = on_message
