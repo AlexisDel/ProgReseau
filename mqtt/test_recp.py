@@ -5,8 +5,6 @@
 import random
 import os
 from paho.mqtt import client as mqtt_client
-import ..src.server.move
-
 
 broker = '192.168.0.125'
 port = 1883
