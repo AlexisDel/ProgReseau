@@ -7,6 +7,7 @@ import os
 from paho.mqtt import client as mqtt_client
 from src.server import move
 
+sys.path.insert(0, '~/src/server') """
 broker = '192.168.0.125'
 port = 1883
 topic = "python/ctrlrobot"
