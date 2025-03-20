@@ -31,12 +31,12 @@ client = connect_mqtt()
 
 
 root = tk.Tk()  # Create the main window
-def forward():
+def forward(n):
     
     client.loop_start()
     time.sleep(1)
     
-    msg = f"{3}"
+    msg = f"{n}"
     result = client.publish(topic, msg)
         
     status = result[0]
@@ -65,20 +65,26 @@ def backward():
     client.loop_stop()
 
 # Create a TV remote UI
-turn_on = tk.Button(root, text="FORWARD", command=forward)
-turn_on.pack()
+frame = tk.Frame(root)
+frame.pack(expand=True)
 
-turn_off = tk.Button(root, text="BACKWARD", command=backward)
-turn_off.pack()
+btn_up = tk.Button(frame, text="Haut")
+btn_up.grid(row=0, column=1)
+btn_up.bind('<ButtonPress-1>',forward(1))
+btn_up.bind('<ButtonRelease-1>',forward(2))
 
-volume = tk.Label(root, text="VOLUME")
-volume.pack()
+btn_left = tk.Button(frame, text="Gauche", command=None)
+btn_left.grid(row=1, column=0)
 
-vol_up = tk.Button(root, text="+")
-vol_up.pack()
+btn_right = tk.Button(frame, text="Droite", command=None)
+btn_right.grid(row=1, column=2)
 
-vol_down = tk.Button(root, text="-")
-vol_down.pack()
+btn_down = tk.Button(frame, text="Bas", command=backward)
+btn_down.grid(row=2, column=1)
+
+btn_extra = tk.Button(frame, text="Extra", command=None)
+btn_extra.grid(row=3, column=1)
+
 
 root.mainloop()
 
