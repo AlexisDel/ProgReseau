@@ -32,7 +32,7 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        if "move" in msg.payload.decode():
+        if "start" in msg.payload.decode():
             move.start()
         elif "left" in msg.payload.decode():
             move.left()
