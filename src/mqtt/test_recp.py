@@ -44,6 +44,7 @@ def subscribe(client: mqtt_client):
             move.stop()
 
     client.subscribe(topic)
+    move.setup()
     client.on_message = on_message
 
 
