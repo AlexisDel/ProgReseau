@@ -5,7 +5,7 @@
 import random
 import os
 from paho.mqtt import client as mqtt_client
-from server.move import test
+from server import move
 """ import sys
 
 sys.path.insert(0, '~/src/server') """
