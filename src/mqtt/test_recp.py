@@ -5,7 +5,7 @@
 import random
 import os
 from paho.mqtt import client as mqtt_client
-from server import move
+from src.server import move
 
 broker = '192.168.0.125'
 port = 1883
@@ -31,16 +31,16 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        if "1" in msg.payload.decode():
-            move.test()
-            #os.system(f" sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
-        elif "2" in msg.payload.decode():
-
-            os.system(f" sudo python3 ProgReseau/src/server/move.py 100")
-        elif "3" in msg.payload.decode():
-            os.system(f"sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
-        else:
-            os.system("sudo python adeept_rasptank/server/LED.py")
+        if "move" in msg.payload.decode():
+            move.start()
+        elif "left" in msg.payload.decode():
+            move.left()
+        elif "right" in msg.payload.decode():
+            move.right()
+        elif "back" in msg.payload.decode():
+            move.back()
+        elif "stop" in msg.payload.decode():
+            move.stop()
 
     client.subscribe(topic)
     client.on_message = on_message
