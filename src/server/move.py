@@ -148,7 +148,7 @@ if __name__ == '__main__':
 			#time.sleep(2)
 			#motorStop()
 			#destroy()
-			destroy()
+			#destroy()
 		elif len(sys.argv) > 1:
 			setup()
 			motorStop()
