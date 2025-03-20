@@ -38,6 +38,8 @@ def subscribe(client: mqtt_client):
             os.system(f"python3 ProgReseau/src/server/move.py 100")
         elif "3" in msg.payload.decode():
             os.system(f"python3 ProgReseau/src/server/move.py 100 forward no 0.8")
+        elif "tir" in msg.payload.decode():
+            os.system(f"python3 ProgReseau/src/server/infra.py")
         else:
             os.system("sudo python adeept_rasptank/server/LED.py")
 
