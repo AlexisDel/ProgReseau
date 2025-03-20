@@ -33,7 +33,7 @@ def subscribe(client: mqtt_client):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
         if "1" in msg.payload.decode():
             move.test()
-            os.system(f" sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
+            #os.system(f" sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
         elif "2" in msg.payload.decode():
 
             os.system(f" sudo python3 ProgReseau/src/server/move.py 100")
