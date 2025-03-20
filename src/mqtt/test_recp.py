@@ -32,15 +32,15 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        if "start" in msg.payload.decode():
+        if "start" in msg.payload.decode("utf-8"):
             move.start()
-        elif "left" in msg.payload.decode():
+        elif "left" in msg.payload.decode("utf-8"):
             move.left()
-        elif "right" in msg.payload.decode():
+        elif "right" in msg.payload.decode("utf-8"):
             move.right()
-        elif "back" in msg.payload.decode():
+        elif "back" in msg.payload.decode("utf-8"):
             move.back()
-        elif "stop" in msg.payload.decode():
+        elif "stop" in msg.payload.decode("utf-8"):
             move.stop()
 
     client.subscribe(topic)
