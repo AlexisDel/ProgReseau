@@ -41,23 +41,19 @@ def motorStop():#Motor stops
 	GPIO.output(Motor_B_EN, GPIO.LOW)
 
 
-def setup():#Motor initialization
-	global pwm_A, pwm_B
-	GPIO.setwarnings(False)
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(Motor_A_EN, GPIO.OUT)
-	GPIO.setup(Motor_B_EN, GPIO.OUT)
-	GPIO.setup(Motor_A_Pin1, GPIO.OUT)
-	GPIO.setup(Motor_A_Pin2, GPIO.OUT)
-	GPIO.setup(Motor_B_Pin1, GPIO.OUT)
-	GPIO.setup(Motor_B_Pin2, GPIO.OUT)
+#def setup():#Motor initialization
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(Motor_A_EN, GPIO.OUT)
+GPIO.setup(Motor_B_EN, GPIO.OUT)
+GPIO.setup(Motor_A_Pin1, GPIO.OUT)
+GPIO.setup(Motor_A_Pin2, GPIO.OUT)
+GPIO.setup(Motor_B_Pin1, GPIO.OUT)
+GPIO.setup(Motor_B_Pin2, GPIO.OUT)
 
-	motorStop()
-	try:
-		pwm_A = GPIO.PWM(Motor_A_EN, 1000)
-		pwm_B = GPIO.PWM(Motor_B_EN, 1000)
-	except:
-		pass
+motorStop()
+pwm_A = GPIO.PWM(Motor_A_EN, 1000)
+pwm_B = GPIO.PWM(Motor_B_EN, 1000)
 
 
 def motor_left(status, direction, speed):#Motor 2 positive and negative rotation
@@ -139,20 +135,16 @@ def destroy():
 	GPIO.cleanup()             # Release resource
 
 def start():
-	setup()
 	move(100, 'forward', 'no', 1)
 	
 
 def left():
-	setup()
 	move(100, 'forward', 'left', 1)
 
 def right():
-	setup()
 	move(100, 'forward', 'right', 1)
 
 def back():
-	setup()
 	move(100, 'no', 'left', 1)
 
 def stop():
