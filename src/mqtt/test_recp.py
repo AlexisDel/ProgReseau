@@ -5,6 +5,7 @@
 import random
 import os
 from paho.mqtt import client as mqtt_client
+from server import move
 
 broker = '192.168.0.125'
 port = 1883
@@ -13,7 +14,6 @@ topic = "python/ctrlrobot"
 client_id = f'subscribe-{random.randint(0, 100)}'
 # username = 'emqx'
 # password = 'public'
-
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
@@ -28,13 +28,14 @@ def connect_mqtt() -> mqtt_client:
     client.connect(broker, port)
     return client
 
-
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
         if "1" in msg.payload.decode():
+            move.test()
             os.system(f" sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
         elif "2" in msg.payload.decode():
+
             os.system(f" sudo python3 ProgReseau/src/server/move.py 100")
         elif "3" in msg.payload.decode():
             os.system(f"sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")

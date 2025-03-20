@@ -139,6 +139,30 @@ def destroy():
 	GPIO.cleanup()             # Release resource
 
 
+def test():
+	try:
+		if len(sys.argv)>3:
+			setup()
+			print(sys.argv)
+			move(int(sys.argv[1]),sys.argv[2],sys.argv[3],0.6 if len(sys.argv) < 4 else float(sys.argv[4]))
+			#time.sleep(2)
+			#motorStop()
+			#destroy()
+			destroy()
+		elif len(sys.argv) > 1:
+			setup()
+			motorStop()
+			destroy()
+		else:
+			speed_set = 60
+			setup()
+			move(speed_set, 'forward', 'no', 1)
+			time.sleep(2)
+			motorStop()
+			destroy()	
+	except KeyboardInterrupt:
+		destroy()
+
 if __name__ == '__main__':
 	try:
 		if len(sys.argv)>3:
