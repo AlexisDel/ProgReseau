@@ -74,5 +74,3 @@ Si vous rencontrez une erreur de type "permission denied" ou quelque chose de si
 sudo iptables -A INPUT -p udp --dport 1883 -j ACCEPT
 sudo iptables -A INPUT -p tcp --dport 1883 -j ACCEPT
 ```
-
-Vous pouvez m'envoyer un message sur Discord au besoin : @fantiks
