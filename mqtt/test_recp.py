@@ -33,9 +33,9 @@ def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
         if "1" in msg.payload.decode():
-            os.system(f"python3 ProgReseau/src/server/move.py 100 forward left 0.8")
+            os.system(f"python3 ProgReseau/src/server/move.py 100 forward no 0.8")
         elif "2" in msg.payload.decode():
-            os.system(f"python3 ProgReseau/src/server/move.py 100 forward right 0.8")
+            os.system(f"python3 ProgReseau/src/server/move.py 100")
         elif "3" in msg.payload.decode():
             os.system(f"python3 ProgReseau/src/server/move.py 100 forward no 0.8")
         else:
