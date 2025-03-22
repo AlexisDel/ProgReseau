@@ -1,6 +1,6 @@
 import time
 from rpi_ws281x import *
-import argparse
+import threading
 import RPi.GPIO as GPIO
 
 # LED strip configuration:
@@ -20,10 +20,6 @@ line_pin_right = 19 # led 1
 line_pin_middle = 16 # led 2
 line_pin_left = 20 # led 3
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
-args = parser.parse_args()
-
 # Create NeoPixel object with appropriate configuration.
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
 # Intialize the library (must be called once before other functions).
@@ -39,7 +35,6 @@ def setup():
 
 # Define functions which animate LEDs in various ways.
 def colorWipe( R, G, B):
-    """Wipe color across display a pixel at a time."""
     color = Color(R,G,B)
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
@@ -64,35 +59,6 @@ def run():
         strip.setPixelColor(2, Color(0, 0, 0))
     strip.show()
 
-def detect_zone_capture():
-  rsensor = GPIO.input(line_pin_right)
-  lsensor = GPIO.input(line_pin_left)
-  msensor = GPIO.input(line_pin_middle)
-  if rsensor==1 and lsensor == 1 and msensor ==1:
-    print("Zone de capture détectée!")
-    strip.setPixelColor(1, Color(1, 0, 255)) #led is blue you're in
-    strip.setPixelColor(2, Color(1, 0, 255))
-    strip.setPixelColor(3, Color(1, 0, 255))
-    strip.show()
-    start_capture()
-
-# 5 sec countdown to capture flag
-def start_capture():
-  strip.setPixelColor(1, Color(255,255,0)) #led is yellow wait 5sec
-  strip.setPixelColor(2, Color(255,255,0))
-  strip.setPixelColor(3, Color(255,255,0))
-  strip.show()
-  for i in range(5):
-     time.sleep(1)
-     print(f"{5-i}")
-  print(f"Drapeau capturée!")
-  strip.setPixelColor(1, Color(0,255,0)) #led green success captured
-  strip.setPixelColor(2, Color(0,255,0))
-  strip.setPixelColor(3, Color(0,255,0))
-  strip.show()
-
-
-
 if __name__ == '__main__':
     try:
       setup()
@@ -102,4 +68,53 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
       colorWipe(0, 0, 0)
 
+
+capture_flag = False
+stop_thread = False
+
+def set_led_color(R, G, B):
+    color = Color(R, G, B)
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, color)
+    strip.show()
+
+            
+def detect_zone_capture():
+  global capture_flag, stop_thread
+  setup()
+  while not stop_thread:
+      rsensor = GPIO.input(line_pin_right)
+      lsensor = GPIO.input(line_pin_left)
+      msensor = GPIO.input(line_pin_middle)
+
+      if rsensor==0 and lsensor == 0 and msensor == 0:
+        if not capture_flag:
+                capture_flag = True
+                print("Zone de capture détectée!")
+                set_led_color(0,0,255)
+                start_capture()
+      else:
+        capture_flag = False
+
+# 5 sec countdown to capture flag
+def start_capture():
+  global capture_flag
+  set_led_color(255,255,0)
+  for i in range(5):
+     time.sleep(1)
+     print(f"{5-i}")
+     if not( GPIO.input(line_pin_right) == 0 and GPIO.input(line_pin_left) == 0 and GPIO.input(line_pin_middle) == 0):
+         capture_flag = False
+         print(f"left capture zone")
+         return
+  print(f"Drapeau capturée!")
+  set_led_color(0,255,0)
+  capture_flag = False
+
+
+
+def start_detection():
+    detection_thread = threading.Thread(target=detect_capture_zone, daemon=True)
+    detection_thread.start()
+    print("thread start function should be started?")
 
