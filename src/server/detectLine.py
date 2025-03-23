@@ -2,6 +2,8 @@ import time
 from rpi_ws281x import *
 import threading
 import RPi.GPIO as GPIO
+#if you want to be able to get the flag and check if you're hit at the same time the stuff needs to be in separate threads, so that you can keep listening and do the actions/listen for more
+
 
 # LED strip configuration:
 LED_COUNT      = 3      # Number of LED pixels.
