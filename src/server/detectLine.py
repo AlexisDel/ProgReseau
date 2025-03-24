@@ -80,11 +80,10 @@ def set_led_color(R, G, B):
         strip.setPixelColor(i, color)
     strip.show()
 
-launch_capture = False
 stop_thread = False
             
 def detect_zone_capture():
-  global launch_capture, stop_thread
+  global stop_thread
   
   while not stop_thread:
       status_right = GPIO.input(line_pin_right)
@@ -96,16 +95,10 @@ def detect_zone_capture():
       print('LF3: %d   LF2: %d   LF1: %d\n'%(status_right,status_middle,status_left))
       set_led_color(0,0,255)
       if rsensor==0 and lsensor == 0 and msensor == 0:
-        launch_capture = True
         print("Zone de capture détectée!")
         set_led_color(0,0,255)
         stop_thread = start_capture()
-        """  if not launch_capture:
-                launch_capture = True
-                print("Zone de capture détectée!")
-                stop_thread= start_capture() """
-        """  else:
-        launch_capture = False """
+
   
 # 5 sec countdown to capture flag
 def start_capture():
@@ -118,7 +111,6 @@ def start_capture():
   print(f"Drapeau capturée!")
   set_led_color(0,255,0)
   return True
-  #launch_capture = False
 
 
 
@@ -126,8 +118,10 @@ def start_detection():
     detection_thread = threading.Thread(target=detect_zone_capture, daemon=True)
     detection_thread.start()
     print("thread start function should be started?")
+    setup()
     detection_thread.join()
 
 
-setup()
-detect_zone_capture()
+""" setup()
+detect_zone_capture() """
+start_detection()
