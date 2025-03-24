@@ -63,11 +63,31 @@ def backward():
 
     client.loop_stop()
 
+<<<<<<< HEAD
 
 root = tk.Tk()
 root.title("Interface de Mouvement")
 root.geometry("300x300")
 
+=======
+def shoot():
+    
+    client.loop_start()
+    time.sleep(1)
+    
+    msg = f"tir"
+    result = client.publish(topic, msg)
+        
+    status = result[0]
+    if status == 0:
+        print(f"Send `{msg}` to topic `{topic}`")
+    else:
+        print(f"Failed to send message to topic {topic}")
+
+    client.loop_stop()
+
+# Create a TV remote UI
+>>>>>>> b943c72 (add shoot)
 frame = tk.Frame(root)
 frame.pack(expand=True)
 
@@ -93,9 +113,15 @@ btn_down.bind("<ButtonRelease>", lambda event: on_release("Bas"))
 
 btn_extra = tk.Button(frame, text="Extra")
 btn_extra.grid(row=3, column=1)
+<<<<<<< HEAD
 btn_extra.bind("<ButtonPress>", lambda event: on_press("Extra"))
 btn_extra.bind("<ButtonRelease>", lambda event: on_release("Extra"))
 
+=======
+
+btn_shoot = tk.Button(frame, text="Tirer", command=shoot)
+btn_shoot.grid(row=4, column=1)
+>>>>>>> b943c72 (add shoot)
 
 root.mainloop()
 
