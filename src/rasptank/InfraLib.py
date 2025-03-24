@@ -304,7 +304,7 @@ def detectError(data):
 def signalToBinary(signal):
 	return "".join(map(lambda signal: "1" if signal[1] > 1000 else "0", filter(lambda signal: signal[0] == 1, signal)))
 
-def getSignal(channel, verbose=False):
+def getSignal(channel, client, verbose=False):
 	shooter = None
 	r = 6
 
@@ -359,4 +359,5 @@ def getSignal(channel, verbose=False):
 		data = removeRedundantBits(data, r)
 
 		shooter = hex(int(str(''.join(str(x) for x in data)),2))
+		client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
 		return shooter
