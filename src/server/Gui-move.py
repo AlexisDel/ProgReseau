@@ -6,7 +6,7 @@ import os
 from paho.mqtt import client as mqtt_client
 
 #MQTT CONN
-broker = 'broker.emqx.io'#'192.168.0.125' #
+broker = 'broker.emqx.io' #192.168.0.125
 port = 1883
 topic = "python/ctrlrobot"
 # Generate a Client ID with the publish prefix.
@@ -110,13 +110,8 @@ btn_extra.grid(row=4, column=2 )
 btn_shoot = tk.Button(frame, text="Tirer", command=shoot)
 btn_shoot.grid(row=4, column=1)
 
-btn_cam = tk.Button(frame, text="Stream", command=shoot)
-btn_cam.grid(row=4, column=1)
-
-
 os.system('xset r off')
 root.bind("<KeyPress>", key_press)
 root.bind("<KeyRelease>", key_release)
 
 root.mainloop()
-
