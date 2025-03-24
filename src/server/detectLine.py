@@ -119,10 +119,9 @@ def start_detection():
     detection_thread = threading.Thread(target=detect_zone_capture, daemon=True)
     detection_thread.start()
     print("thread start function should be started?")
-    setup()
     detection_thread.join()
 
 
-""" setup()"""
-detect_zone_capture() 
-#start_detection()
+""" setup()
+detect_zone_capture() """
+start_detection()
