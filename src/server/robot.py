@@ -48,7 +48,8 @@ def set_receive_infra(client):
     while True:
         shooter = InfraLib.getSignal(IR_RECEIVER)
         if shooter:
-            print(shooter)
+            #shooter = "0x" + str(shooter)[4:]
+            print(f"on était shooter par {shooter}")
             client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
 
 def set_motor():
