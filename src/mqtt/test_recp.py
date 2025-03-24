@@ -41,6 +41,23 @@ def set_receive_infra(client):
     GPIO.setup(IR_RECEIVER, GPIO.IN)
     GPIO.add_event_detect(IR_RECEIVER, GPIO.FALLING, callback=lambda x: InfraLib.getSignal(IR_RECEIVER, client), bouncetime=100)
 
+def set_motor():
+    Motor_A_EN    = 7
+    Motor_B_EN    = 11
+
+    Motor_A_Pin1  = 8
+    Motor_A_Pin2  = 10
+    Motor_B_Pin1  = 13
+    Motor_B_Pin2  = 12
+    GPIO.setup(Motor_A_EN, GPIO.OUT)
+    GPIO.setup(Motor_B_EN, GPIO.OUT)
+    GPIO.setup(Motor_A_Pin1, GPIO.OUT)
+    GPIO.setup(Motor_A_Pin2, GPIO.OUT)
+    GPIO.setup(Motor_B_Pin1, GPIO.OUT)
+    GPIO.setup(Motor_B_Pin2, GPIO.OUT)
+
+    move.motorStop()
+
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
@@ -88,6 +105,7 @@ def run():
     client = connect_mqtt()
     subscribe(client)
     set_receive_infra(client)
+    set_motor()
     client.loop_forever()
 
 

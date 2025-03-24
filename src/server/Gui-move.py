@@ -35,7 +35,6 @@ def sent(msg):
     client.loop_start()
     time.sleep(1)
     
-    msg = f"{n}"
     result = client.publish(topic, msg)
         
     status = result[0]
@@ -45,23 +44,7 @@ def sent(msg):
         print(f"Failed to send message to topic {topic}")
 
     client.loop_stop()
-    
 
-def backward():
-    
-    client.loop_start()
-    time.sleep(1)
-    
-    msg = f"{4}"
-    result = client.publish(topic, msg)
-        
-    status = result[0]
-    if status == 0:
-        print(f"Send `{msg}` to topic `{topic}`")
-    else:
-        print(f"Failed to send message to topic {topic}")
-
-    client.loop_stop()
 
 def shoot():
     

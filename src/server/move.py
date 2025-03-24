@@ -12,13 +12,22 @@ import RPi.GPIO as GPIO
 # motor_EN_A: Pin7  |  motor_EN_B: Pin11
 # motor_A:  Pin8,Pin10    |  motor_B: Pin13,Pin12
 
-Motor_A_EN    = 4
-Motor_B_EN    = 17
+# Motor_A_EN    = 4
+# Motor_B_EN    = 17
 
-Motor_A_Pin1  = 14
-Motor_A_Pin2  = 15
-Motor_B_Pin1  = 27
-Motor_B_Pin2  = 18
+# Motor_A_Pin1  = 14
+# Motor_A_Pin2  = 15
+# Motor_B_Pin1  = 27
+# Motor_B_Pin2  = 18
+
+Motor_A_EN    = 7
+Motor_B_EN    = 11
+
+Motor_A_Pin1  = 8
+Motor_A_Pin2  = 10
+Motor_B_Pin1  = 13
+Motor_B_Pin2  = 12
+
 
 Dir_forward   = 0
 Dir_backward  = 1
@@ -41,18 +50,14 @@ def motorStop():#Motor stops
 	GPIO.output(Motor_B_EN, GPIO.LOW)
 
 
-#def setup():#Motor initialization
-#global pwm_A, pwm_B
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(Motor_A_EN, GPIO.OUT)
-GPIO.setup(Motor_B_EN, GPIO.OUT)
-GPIO.setup(Motor_A_Pin1, GPIO.OUT)
-GPIO.setup(Motor_A_Pin2, GPIO.OUT)
-GPIO.setup(Motor_B_Pin1, GPIO.OUT)
-GPIO.setup(Motor_B_Pin2, GPIO.OUT)
+# GPIO.setup(Motor_A_EN, GPIO.OUT)
+# GPIO.setup(Motor_B_EN, GPIO.OUT)
+# GPIO.setup(Motor_A_Pin1, GPIO.OUT)
+# GPIO.setup(Motor_A_Pin2, GPIO.OUT)
+# GPIO.setup(Motor_B_Pin1, GPIO.OUT)
+# GPIO.setup(Motor_B_Pin2, GPIO.OUT)
 
-motorStop()
+# motorStop()
 pwm_A = GPIO.PWM(Motor_A_EN, 1000)
 pwm_B = GPIO.PWM(Motor_B_EN, 1000)
 
@@ -139,14 +144,14 @@ def start():
 	move(100, 'forward', 'no', 1)
 	
 
-def left():
+def right():
 	move(100, 'forward', 'left', 1)
 
-def right():
+def left():
 	move(100, 'forward', 'right', 1)
 
 def back():
-	move(100, 'no', 'left', 1)
+	move(100, 'backward', 'no', 1)
 
 def stop():
 	motorStop()
