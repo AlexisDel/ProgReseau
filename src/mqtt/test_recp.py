@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 from src.rasptank import InfraLib
 import uuid
 
-broker = 'broker.emqx.io' #'192.168.0.125'broker.emqx.io
+broker = '192.168.0.125' #''broker.emqx.io
 tankID = uuid.getnode()
 
 port = 1883
