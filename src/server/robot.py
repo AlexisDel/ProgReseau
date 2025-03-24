@@ -51,7 +51,7 @@ def set_receive_infra(client):
         if shooter:
             #shooter = "0x" + str(shooter)[4:]
             print(f"on était shooter par {shooter}")
-            client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
+            client.publish(f'tanks/{tankID}/shots', f'SHOT_BY {shooter}')
 
 def set_motor():
     GPIO.setwarnings(False)
