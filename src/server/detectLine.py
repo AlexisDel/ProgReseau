@@ -80,14 +80,17 @@ def set_led_color(R, G, B):
         strip.setPixelColor(i, color)
     strip.show()
 
+launch_capture = False
             
 def detect_zone_capture():
   global launch_capture, stop_thread
-  setup()
+  status_right = GPIO.input(line_pin_right)
+  status_middle = GPIO.input(line_pin_middle)
+  status_left = GPIO.input(line_pin_left)
   while not launch_capture:
-      rsensor = GPIO.input(line_pin_right)
-      lsensor = GPIO.input(line_pin_left)
-      msensor = GPIO.input(line_pin_middle)
+      rsensor = status_right #GPIO.input(line_pin_right)
+      lsensor = status_left #GPIO.input(line_pin_left)
+      msensor = status_middle #GPIO.input(line_pin_middle)
 
       if rsensor==0 and lsensor == 0 and msensor == 0:
         launch_capture = True
@@ -125,4 +128,6 @@ def start_detection():
     print("thread start function should be started?")
     detection_thread.join()
 
+
+setup()
 detect_zone_capture()
