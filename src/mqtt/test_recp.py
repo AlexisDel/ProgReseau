@@ -90,7 +90,7 @@ def subscribe(client: mqtt_client):
 def run():
     client = connect_mqtt()
     subscribe(client)
-    #set_receive_infra(client)
+    set_receive_infra(client)
     client.loop_forever()
 
 
