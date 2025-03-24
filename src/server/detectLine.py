@@ -83,6 +83,7 @@ def set_led_color(R, G, B):
             
 def detect_zone_capture():
   global launch_capture, stop_thread
+  setup()
   while not launch_capture:
       rsensor = GPIO.input(line_pin_right)
       lsensor = GPIO.input(line_pin_left)
