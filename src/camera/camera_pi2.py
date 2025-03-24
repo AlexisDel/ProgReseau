@@ -1,7 +1,7 @@
 import io
 import time
 from picamera2 import Picamera2, Preview
-from src.camera.base_camera import BaseCamera
+from base_camera import BaseCamera
 
 class Camera(BaseCamera):
     @staticmethod

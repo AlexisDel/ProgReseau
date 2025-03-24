@@ -38,7 +38,9 @@ def video_feed():
     return Response(generate_frames(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if __name__ == 'main':
+if __name__ == '__main__':
     # Run the app on all network interfaces, port 8000
     app.run(host='0.0.0.0', port=8000)
 
+
+# ip:port/video_feed
