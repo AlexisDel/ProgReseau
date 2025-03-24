@@ -51,6 +51,16 @@ class LED:
             self.strip.setPixelColor(i, color)
             self.strip.show()
 
+    def blink(r=0, g=0, b=0, time_sec=1):
+        self.colorWipe(r, g, b)
+        time.sleep(time_sec)
+        self.colorWipe(0, 0, 0)
+
+    def blink_shot(self):
+        for _ in range(5):
+            self.blink(r=255, g=0, b=0, time_sec=0.2)
+            time.sleep(0.1)
+
 if __name__ == '__main__':
     led = LED()
     try:  
