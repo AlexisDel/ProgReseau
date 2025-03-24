@@ -5,7 +5,7 @@ import time
 from paho.mqtt import client as mqtt_client
 
 #MQTT CONN
-broker = 'broker.emqx.io' #'192.168.0.125'
+broker = '192.168.0.125' #broker.emqx.io
 port = 1883
 topic = "python/ctrlrobot"
 # Generate a Client ID with the publish prefix.

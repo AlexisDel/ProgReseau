@@ -8,7 +8,7 @@ from paho.mqtt import client as mqtt_client
 from src.server import move
 
 
-broker = 'broker.emqx.io' #'192.168.0.125'
+broker = '192.168.0.125' #'192.168.0.125'broker.emqx.io
 port = 1883
 topic = "python/ctrlrobot"
 # Generate a Client ID with the subscribe prefix.
@@ -44,7 +44,7 @@ def subscribe(client: mqtt_client):
             move.stop()
 
     client.subscribe(topic)
-    
+    move.setup()
     client.on_message = on_message
 
 
