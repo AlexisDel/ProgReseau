@@ -51,7 +51,7 @@ class LED:
             self.strip.setPixelColor(i, color)
             self.strip.show()
 
-    def blink(r=0, g=0, b=0, time_sec=1):
+    def blink(self,r=0, g=0, b=0, time_sec=1):
         self.colorWipe(r, g, b)
         time.sleep(time_sec)
         self.colorWipe(0, 0, 0)
