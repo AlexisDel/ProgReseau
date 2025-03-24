@@ -81,7 +81,7 @@ def subscribe(client: mqtt_client):
                 infra.shoot()
                 led.blink(r=255, g=0, b=0, time_sec=0.2)
             if "INIT" in message:
-                result = client.publish(topic, f"INIT {tankID}")
+                result = client.publish("init", f"INIT {tankID}")
                 status = result[0]
                 if status == 0:
                     print(f"Send `INIT {tankID} to topic `{topic}`")
