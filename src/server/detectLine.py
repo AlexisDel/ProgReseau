@@ -42,34 +42,6 @@ def colorWipe( R, G, B):
         strip.setPixelColor(i, color)
         strip.show()
 
-def run():
-    status_right = GPIO.input(line_pin_right)
-    status_middle = GPIO.input(line_pin_middle)
-    status_left = GPIO.input(line_pin_left)
-    print('LF3: %d   LF2: %d   LF1: %d\n'%(status_right,status_middle,status_left))
-    if status_left == 1 :
-        strip.setPixelColor(0, Color(0, 0, 255))
-    else:
-        strip.setPixelColor(0, Color(0, 0, 0))
-    if status_middle == 1:
-        strip.setPixelColor(1, Color(1, 0, 255))
-    else:
-        strip.setPixelColor(1, Color(1, 0, 0))
-    if  status_right == 1:
-        strip.setPixelColor(2, Color(2, 0, 255)) 
-    else:
-        strip.setPixelColor(2, Color(0, 0, 0))
-    strip.show()
-
-""" if __name__ == '__main__':
-    try:
-      setup()
-      while 1:
-        run()
-      pass
-    except KeyboardInterrupt:
-      colorWipe(0, 0, 0)
- """
 
 launch_capture = False
 stop_thread = False
