@@ -2,17 +2,16 @@ from rpi_ws281x import *
 import RPi.GPIO as GPIO
 from src.server.robot import tankID
 
-line_pin_right = 19 # led 1
-line_pin_middle = 16 # led 2
-line_pin_left = 20 # led 3
-
+line_pin_right = 35  # led 1
+line_pin_middle = 36  # led 2
+line_pin_left = 38  # led 3
 
 def setup():
     GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(line_pin_right,GPIO.IN)
-    GPIO.setup(line_pin_middle,GPIO.IN)
-    GPIO.setup(line_pin_left,GPIO.IN)
+    GPIO.setmode(GPIO.BOARD)  # Mode BOARD (numérotation physique)
+    GPIO.setup(line_pin_right, GPIO.IN)
+    GPIO.setup(line_pin_middle, GPIO.IN)
+    GPIO.setup(line_pin_left, GPIO.IN)
             
 def detect_zone_capture(client,verbose=False):
     setup()
