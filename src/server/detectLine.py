@@ -71,7 +71,7 @@ def run():
       colorWipe(0, 0, 0)
  """
 
-capture_flag = False
+launch_capture = False
 stop_thread = False
 
 def set_led_color(R, G, B):
@@ -82,36 +82,39 @@ def set_led_color(R, G, B):
 
             
 def detect_zone_capture():
-  global capture_flag, stop_thread
-  setup()
-  while not capture_flag:
+  global launch_capture, stop_thread
+  while not launch_capture:
       rsensor = GPIO.input(line_pin_right)
       lsensor = GPIO.input(line_pin_left)
       msensor = GPIO.input(line_pin_middle)
 
       if rsensor==0 and lsensor == 0 and msensor == 0:
-        if not capture_flag:
-                capture_flag = True
+        launch_capture = True
+        print("Zone de capture détectée!")
+        set_led_color(0,0,255)
+        start_capture()
+        """ if not launch_capture:
+                launch_capture = True
                 print("Zone de capture détectée!")
                 set_led_color(0,0,255)
-                start_capture()
-      else:
-        capture_flag = False
+                start_capture() """
+      """ else:
+        launch_capture = False """
 
 # 5 sec countdown to capture flag
 def start_capture():
-  global capture_flag
+  global launch_capture
   set_led_color(255,255,0)
   for i in range(5):
      time.sleep(1)
      print(f"{5-i}")
      if not( GPIO.input(line_pin_right) == 0 and GPIO.input(line_pin_left) == 0 and GPIO.input(line_pin_middle) == 0):
-         capture_flag = False
+         launch_capture = False
          print(f"left capture zone")
          return
   print(f"Drapeau capturée!")
   set_led_color(0,255,0)
-  capture_flag = False
+  #launch_capture = False
 
 
 
