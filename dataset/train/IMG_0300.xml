@@ -1,0 +1,26 @@
+<annotation>
+	<folder>rasptank_dataset</folder>
+	<filename>IMG_0300.jpg</filename>
+	<path>C:\Users\0sh8t\Rasptank\rasptank_dataset\IMG_0300.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>4032</width>
+		<height>3024</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rasptank</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1430</xmin>
+			<ymin>696</ymin>
+			<xmax>2905</xmax>
+			<ymax>2070</ymax>
+		</bndbox>
+	</object>
+</annotation>
