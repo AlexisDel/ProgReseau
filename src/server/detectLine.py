@@ -120,8 +120,3 @@ def start_detection():
     detection_thread.start()
     print("thread start function should be started?")
     detection_thread.join()
-
-
-""" setup()
-detect_zone_capture() """
-start_detection()
