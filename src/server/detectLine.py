@@ -61,7 +61,7 @@ def run():
         strip.setPixelColor(2, Color(0, 0, 0))
     strip.show()
 
-if __name__ == '__main__':
+""" if __name__ == '__main__':
     try:
       setup()
       while 1:
@@ -69,7 +69,7 @@ if __name__ == '__main__':
       pass
     except KeyboardInterrupt:
       colorWipe(0, 0, 0)
-
+ """
 
 capture_flag = False
 stop_thread = False
@@ -116,7 +116,8 @@ def start_capture():
 
 
 def start_detection():
-    detection_thread = threading.Thread(target=detect_capture_zone, daemon=True)
+    detection_thread = threading.Thread(target=detect_zone_capture, daemon=True)
     detection_thread.start()
     print("thread start function should be started?")
 
+start_detection()
