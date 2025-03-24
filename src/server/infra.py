@@ -1,5 +1,5 @@
 import uuid
-from rasptank import InfraLib
+from src.rasptank import InfraLib
 import RPi.GPIO as GPIO
 
 
