@@ -84,7 +84,7 @@ def subscribe(client: mqtt_client):
                 result = client.publish(topic, f"INIT {tankID}")
                 status = result[0]
                 if status == 0:
-                    print(f"Send `{f"INIT {tankID}"}` to topic `{topic}`")
+                    print(f"Send `INIT {tankID} to topic `{topic}`")
         if msg.topic == f"tanks/{tankID}/init":
             if "TEAM BLUE" in message:
                 led.blink(r=0, g=0, b=255, time_sec=1)
