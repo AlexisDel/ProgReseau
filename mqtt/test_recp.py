@@ -44,13 +44,13 @@ def subscribe(client: mqtt_client):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
         if msg.topic == "python/ctrlrobot":
             if "1" in msg.payload.decode():
-                os.system(f"python3 ProgReseau/src/server/move.py 100 forward no 0.8")
+                os.system(f"sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
             if "2" in msg.payload.decode():
-                os.system(f"python3 ProgReseau/src/server/move.py 100")
+                os.system(f"sudo python3 ProgReseau/src/server/move.py 100")
             if "3" in msg.payload.decode():
-                os.system(f"python3 ProgReseau/src/server/move.py 100 forward no 0.8")
+                os.system(f"sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
             if "tir" in msg.payload.decode():
-                os.system(f"python3 ProgReseau/src/server/infra.py")
+                os.system(f"sudo python3 ProgReseau/src/server/infra.py")
         if msg.topic == "tanks/id/init":
             if "TEAM BLUE" in msg.payload.decode():
                 #TODO: add the code to make the LED blink blue
@@ -75,6 +75,7 @@ def subscribe(client: mqtt_client):
             if "SHOT" in msg.payload.decode():
                 #TODO: add the code in case of shot (flash green)
                 pass
+
 
     for topic in topics:
         client.subscribe(topic)
