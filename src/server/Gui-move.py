@@ -5,7 +5,7 @@ import time
 from paho.mqtt import client as mqtt_client
 
 #MQTT CONN
-broker = '192.168.0.125'
+broker = 'broker.emqx.io' #192.168.0.125
 port = 1883
 topic = "python/ctrlrobot"
 # Generate a Client ID with the publish prefix.
@@ -30,7 +30,7 @@ client = connect_mqtt()
 #GUI
 
 
-def forward(n):
+def sent(msg):
     
     client.loop_start()
     time.sleep(1)
@@ -88,23 +88,23 @@ frame.pack(expand=True)
 
 btn_up = tk.Button(frame, text="Haut")
 btn_up.grid(row=0, column=1)
-btn_up.bind("<ButtonPress>", lambda event: forward(1))
-btn_up.bind("<ButtonRelease>", lambda event: forward(2))
+btn_up.bind("<ButtonPress>", lambda event: sent("start"))
+btn_up.bind("<ButtonRelease>", lambda event: sent("stop"))
 
 btn_left = tk.Button(frame, text="Gauche")
 btn_left.grid(row=1, column=0)
-btn_left.bind("<ButtonPress>", lambda event: on_press("Gauche"))
-btn_left.bind("<ButtonRelease>", lambda event: on_release("Gauche"))
+btn_left.bind("<ButtonPress>", lambda event: sent("left"))
+btn_left.bind("<ButtonRelease>", lambda event: sent("stop"))
 
 btn_right = tk.Button(frame, text="Droite")
 btn_right.grid(row=1, column=2)
-btn_right.bind("<ButtonPress>", lambda event: on_press("Droite"))
-btn_right.bind("<ButtonRelease>", lambda event: on_release("Droite"))
+btn_right.bind("<ButtonPress>", lambda event: sent("right"))
+btn_right.bind("<ButtonRelease>", lambda event: sent("stop"))
 
 btn_down = tk.Button(frame, text="Bas")
 btn_down.grid(row=2, column=1)
-btn_down.bind("<ButtonPress>", lambda event: on_press("Bas"))
-btn_down.bind("<ButtonRelease>", lambda event: on_release("Bas"))
+btn_down.bind("<ButtonPress>", lambda event: sent("back"))
+btn_down.bind("<ButtonRelease>", lambda event: sent("stop"))
 
 btn_extra = tk.Button(frame, text="Extra")
 btn_extra.grid(row=3, column=1)

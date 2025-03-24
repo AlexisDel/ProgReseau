@@ -41,23 +41,20 @@ def motorStop():#Motor stops
 	GPIO.output(Motor_B_EN, GPIO.LOW)
 
 
-def setup():#Motor initialization
-	global pwm_A, pwm_B
-	GPIO.setwarnings(False)
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(Motor_A_EN, GPIO.OUT)
-	GPIO.setup(Motor_B_EN, GPIO.OUT)
-	GPIO.setup(Motor_A_Pin1, GPIO.OUT)
-	GPIO.setup(Motor_A_Pin2, GPIO.OUT)
-	GPIO.setup(Motor_B_Pin1, GPIO.OUT)
-	GPIO.setup(Motor_B_Pin2, GPIO.OUT)
+#def setup():#Motor initialization
+#global pwm_A, pwm_B
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(Motor_A_EN, GPIO.OUT)
+GPIO.setup(Motor_B_EN, GPIO.OUT)
+GPIO.setup(Motor_A_Pin1, GPIO.OUT)
+GPIO.setup(Motor_A_Pin2, GPIO.OUT)
+GPIO.setup(Motor_B_Pin1, GPIO.OUT)
+GPIO.setup(Motor_B_Pin2, GPIO.OUT)
 
-	motorStop()
-	try:
-		pwm_A = GPIO.PWM(Motor_A_EN, 1000)
-		pwm_B = GPIO.PWM(Motor_B_EN, 1000)
-	except:
-		pass
+motorStop()
+pwm_A = GPIO.PWM(Motor_A_EN, 1000)
+pwm_B = GPIO.PWM(Motor_B_EN, 1000)
 
 
 def motor_left(status, direction, speed):#Motor 2 positive and negative rotation
@@ -138,29 +135,19 @@ def destroy():
 	motorStop()
 	GPIO.cleanup()             # Release resource
 
+def start():
+	move(100, 'forward', 'no', 1)
+	
 
-if __name__ == '__main__':
-	try:
-		if len(sys.argv)>3:
-			setup()
-			print(sys.argv)
-			move(int(sys.argv[1]),sys.argv[2],sys.argv[3],0.6 if len(sys.argv) < 4 else float(sys.argv[4]))
-			#time.sleep(2)
-			#motorStop()
-			#destroy()
-			#destroy()
-		elif len(sys.argv) > 1:
-			setup()
-			motorStop()
-			destroy()
-		else:
-			speed_set = 60
-			setup()
-			move(speed_set, 'forward', 'no', 1)
-			time.sleep(2)
-			motorStop()
-			destroy()
-		
-	except KeyboardInterrupt:
-		destroy()
+def left():
+	move(100, 'forward', 'left', 1)
+
+def right():
+	move(100, 'forward', 'right', 1)
+
+def back():
+	move(100, 'no', 'left', 1)
+
+def stop():
+	motorStop()
 

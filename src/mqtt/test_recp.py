@@ -3,19 +3,20 @@
 import random
 import os
 from paho.mqtt import client as mqtt_client
+from src.server import move
 import RPi.GPIO as GPIO
 from rasptank import InfraLib
 import uuid
 
-broker = '192.168.0.125'
+broker = 'broker.emqx.io' #'192.168.0.125'broker.emqx.io
 tankID = uuid.getnode()
+
 port = 1883
 topics = ["python/ctrlrobot", "tanks/id/init", "tanks/id/shots/in", "tanks/id/shots/out"]
 # Generate a Client ID with the subscribe prefix.
 client_id = f'subscribe-{random.randint(0, 100)}'
 # username = 'emqx'
 # password = 'public'
-
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
@@ -43,12 +44,16 @@ def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
         if msg.topic == "python/ctrlrobot":
-            if "1" in msg.payload.decode():
-                os.system(f"sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
-            if "2" in msg.payload.decode():
-                os.system(f"sudo python3 ProgReseau/src/server/move.py 100")
-            if "3" in msg.payload.decode():
-                os.system(f"sudo python3 ProgReseau/src/server/move.py 100 forward no 0.8")
+            if "start" in msg.payload.decode("utf-8"):
+                move.start()
+            if "left" in msg.payload.decode("utf-8"):
+                move.left()
+            if "right" in msg.payload.decode("utf-8"):
+                move.right()
+            if "back" in msg.payload.decode("utf-8"):
+                move.back()
+            if "stop" in msg.payload.decode("utf-8"):
+                move.stop()
             if "tir" in msg.payload.decode():
                 os.system(f"sudo python3 ProgReseau/src/server/infra.py")
         if msg.topic == "tanks/id/init":
@@ -90,4 +95,7 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    try:
+        run()
+    except KeyboardInterrupt:
+        move.destroy()
