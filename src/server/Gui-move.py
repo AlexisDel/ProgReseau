@@ -89,17 +89,11 @@ btn_down.grid(row=2, column=1)
 btn_down.bind("<ButtonPress>", lambda event: sent("back"))
 btn_down.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_extra = tk.Button(frame, text="Extra")
-btn_extra.grid(row=3, column=1)
-
+btn_extra = tk.Button(frame, text="INIT")
+btn_extra.grid(row=4, column=2, command=lambda event: sent("INIT"))
 
 btn_shoot = tk.Button(frame, text="Tirer", command=shoot)
 btn_shoot.grid(row=4, column=1)
-
-btn_extra.bind("<ButtonPress>", lambda event: on_press("Extra"))
-btn_extra.bind("<ButtonRelease>", lambda event: on_release("Extra"))
-
-
 
 root.mainloop()
 
