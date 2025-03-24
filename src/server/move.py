@@ -139,14 +139,14 @@ def start():
 	move(100, 'forward', 'no', 1)
 	
 
-def left():
+def right():
 	move(100, 'forward', 'left', 1)
 
-def right():
+def left():
 	move(100, 'forward', 'right', 1)
 
 def back():
-	move(100, 'no', 'left', 1)
+	move(100, 'backward', 'no', 1)
 
 def stop():
 	motorStop()
