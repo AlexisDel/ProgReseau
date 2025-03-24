@@ -359,5 +359,5 @@ def getSignal(channel, client, verbose=False):
 		data = removeRedundantBits(data, r)
 
 		shooter = hex(int(str(''.join(str(x) for x in data)),2))
-		client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
+		#client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
 		return shooter
