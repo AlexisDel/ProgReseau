@@ -41,6 +41,8 @@ def connect_mqtt() -> mqtt_client:
     return client
 
 def set_receive_infra(client):
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
     IR_RECEIVER = 15
     GPIO.setup(IR_RECEIVER, GPIO.IN)
     while True:
@@ -49,6 +51,8 @@ def set_receive_infra(client):
         client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
 
 def set_motor():
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
     Motor_A_EN    = 7
     Motor_B_EN    = 11
 
@@ -133,8 +137,6 @@ def subscribe(client: mqtt_client):
 def run():
     client = connect_mqtt()
     subscribe(client)
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BOARD)
     Thread(set_receive_infra, client)
     set_motor()
     client.loop_forever()
