@@ -58,8 +58,8 @@ def motorStop():#Motor stops
 # GPIO.setup(Motor_B_Pin2, GPIO.OUT)
 
 # motorStop()
-# pwm_A = GPIO.PWM(Motor_A_EN, 1000)
-# pwm_B = GPIO.PWM(Motor_B_EN, 1000)
+pwm_A = GPIO.PWM(Motor_A_EN, 1000)
+pwm_B = GPIO.PWM(Motor_B_EN, 1000)
 
 
 def motor_left(status, direction, speed):#Motor 2 positive and negative rotation
