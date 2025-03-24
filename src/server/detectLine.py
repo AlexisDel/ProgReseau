@@ -8,7 +8,7 @@ line_pin_left = 38  # led 3
 
 def setup():
     GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BOARD)  # Mode BOARD (numérotation physique)
+    GPIO.setmode(GPIO.BOARD) 
     GPIO.setup(line_pin_right, GPIO.IN)
     GPIO.setup(line_pin_middle, GPIO.IN)
     GPIO.setup(line_pin_left, GPIO.IN)

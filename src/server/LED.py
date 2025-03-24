@@ -21,9 +21,6 @@ class LED:
         self.LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
         self.LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
         self.LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
-        parser = argparse.ArgumentParser()
-        parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
-        args = parser.parse_args()
 
         # Create NeoPixel object with appropriate configuration.
         self.strip = Adafruit_NeoPixel(self.LED_COUNT, self.LED_PIN, self.LED_FREQ_HZ, self.LED_DMA, self.LED_INVERT, self.LED_BRIGHTNESS, self.LED_CHANNEL)
@@ -51,9 +48,9 @@ class LED:
         self.colorWipe(0, 0, 0)
 
     def blink_shot(self):
-        for _ in range(5):
-            self.blink(r=255, g=0, b=0, time_sec=0.2)
-            time.sleep(0.1)
+        for _ in range(2):
+            self.blink(r=255, g=0, b=0, time_sec=0.5)
+            time.sleep(0.5)
 
 if __name__ == '__main__':
     led = LED()
