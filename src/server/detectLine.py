@@ -83,6 +83,7 @@ def set_led_color(R, G, B):
 stop_thread = False
             
 def detect_zone_capture():
+  setup()
   global stop_thread
   
   while not stop_thread:
@@ -122,6 +123,6 @@ def start_detection():
     detection_thread.join()
 
 
-""" setup()
-detect_zone_capture() """
-start_detection()
+""" setup()"""
+detect_zone_capture() 
+#start_detection()
