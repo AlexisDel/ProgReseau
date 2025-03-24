@@ -125,7 +125,8 @@ def subscribe(client: mqtt_client):
 def run():
     client = connect_mqtt()
     subscribe(client)
-    Thread(set_receive_infra, args=(client,))
+    t1 = Thread(target=set_receive_infra, args=(client,))
+    t1.start()
     #set_motor()
     client.loop_forever()
 
