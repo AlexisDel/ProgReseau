@@ -3,7 +3,7 @@
 import random
 import os
 from paho.mqtt import client as mqtt_client
-from src.server import move
+from src.server import move, LED, infra
 import RPi.GPIO as GPIO
 from src.rasptank import InfraLib
 import uuid
@@ -17,6 +17,8 @@ topics = ["python/ctrlrobot", "tanks/id/init", "tanks/id/shots/in", "tanks/id/sh
 client_id = f'subscribe-{random.randint(0, 100)}'
 # username = 'emqx'
 # password = 'public'
+
+led = LED()
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
@@ -72,31 +74,26 @@ def subscribe(client: mqtt_client):
             if "stop" in msg.payload.decode("utf-8"):
                 move.stop()
             if "tir" in msg.payload.decode():
-                os.system(f"sudo python3 ProgReseau/src/server/infra.py")
+                infra.shoot()
+                led.blink(r=255, g=0, b=0, time_sec=0.2)
         if msg.topic == "tanks/id/init":
             if "TEAM BLUE" in msg.payload.decode():
-                #TODO: add the code to make the LED blink blue
-                pass
+                led.blink(r=0, g=0, b=255, time_sec=1)
             if "TEAM RED" in msg.payload.decode():
-                #TODO: add the code to make the LED blink red
-                pass
+                led.blink(r=255, g=0, b=0, time_sec=1)
         if msg.topic == "tanks/id/shots/in":
             if "SHOT" in msg.payload.decode():
-                #TODO: add the code to make the LED blink red
-                pass
+                led.blink_shot()
             if "FLAG_LOST" in  msg.payload.decode():
-                #TODO: add code when flag is lost
-                pass
+                led.blink(r=255, g=0, b=0, time_sec=1)
             if "ABORT_CATCHING_SHOT" in msg.payload.decode():
-                #TODO: add code when the shot is aborted
+                led.blink(r=255, g=0, b=0, time_sec=1)
                 pass
         if msg.topic == "tanks/id/shots/out":
             if "FRIENDLY_FIRE" in msg.payload.decode():
-                #TODO: add the code in case of friendly fire
-                pass
+                led.blink(0.5)
             if "SHOT" in msg.payload.decode():
-                #TODO: add the code in case of shot (flash green)
-                pass
+                led.blink(r=0,g=255,b=0, time_sec=1)
 
 
     for topic in topics:
