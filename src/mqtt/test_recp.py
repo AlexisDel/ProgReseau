@@ -55,8 +55,6 @@ def set_motor():
     GPIO.setup(Motor_B_Pin2, GPIO.OUT)
 
     move.motorStop()
-    pwm_A = GPIO.PWM(Motor_A_EN, 1000)
-    pwm_B = GPIO.PWM(Motor_B_EN, 1000)
 
 
 def subscribe(client: mqtt_client):
