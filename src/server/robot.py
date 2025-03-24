@@ -47,8 +47,9 @@ def set_receive_infra(client):
     GPIO.setup(IR_RECEIVER, GPIO.IN)
     while True:
         shooter = InfraLib.getSignal(IR_RECEIVER)
-        print(shooter)
-        client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
+        if shooter:
+            print(shooter)
+            client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
 
 def set_motor():
     GPIO.setwarnings(False)
