@@ -22,10 +22,6 @@ line_pin_right = 19 # led 1
 line_pin_middle = 16 # led 2
 line_pin_left = 20 # led 3
 
-# Create NeoPixel object with appropriate configuration.
-strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-# Intialize the library (must be called once before other functions).
-strip.begin()
 
 def setup():
     GPIO.setwarnings(False)
@@ -33,84 +29,42 @@ def setup():
     GPIO.setup(line_pin_right,GPIO.IN)
     GPIO.setup(line_pin_middle,GPIO.IN)
     GPIO.setup(line_pin_left,GPIO.IN)
-    #motor.setup()
-
-# Define functions which animate LEDs in various ways.
-def colorWipe( R, G, B):
-    color = Color(R,G,B)
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, color)
-        strip.show()
-
-def run():
-    status_right = GPIO.input(line_pin_right)
-    status_middle = GPIO.input(line_pin_middle)
-    status_left = GPIO.input(line_pin_left)
-    print('LF3: %d   LF2: %d   LF1: %d\n'%(status_right,status_middle,status_left))
-    if status_left == 1 :
-        strip.setPixelColor(0, Color(0, 0, 255))
-    else:
-        strip.setPixelColor(0, Color(0, 0, 0))
-    if status_middle == 1:
-        strip.setPixelColor(1, Color(1, 0, 255))
-    else:
-        strip.setPixelColor(1, Color(1, 0, 0))
-    if  status_right == 1:
-        strip.setPixelColor(2, Color(2, 0, 255)) 
-    else:
-        strip.setPixelColor(2, Color(0, 0, 0))
-    strip.show()
-
-""" if __name__ == '__main__':
-    try:
-      setup()
-      while 1:
-        run()
-      pass
-    except KeyboardInterrupt:
-      colorWipe(0, 0, 0)
- """
 
 launch_capture = False
 stop_thread = False
-
-def set_led_color(R, G, B):
-    color = Color(R, G, B)
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, color)
-    strip.show()
-
 stop_thread = False
             
-def detect_zone_capture():
-  setup()
-  global stop_thread
+def detect_zone_capture(verbose=False):
+    setup()
+    was_in_capture_zone = False
   
-  while not stop_thread:
-      status_right = GPIO.input(line_pin_right)
-      status_middle = GPIO.input(line_pin_middle)
-      status_left = GPIO.input(line_pin_left)
-      rsensor = GPIO.input(line_pin_right)
-      lsensor = GPIO.input(line_pin_left)
-      msensor = GPIO.input(line_pin_middle)
-      print('LF3: %d   LF2: %d   LF1: %d\n'%(status_right,status_middle,status_left))
-      set_led_color(0,0,255)
-      if rsensor==0 and lsensor == 0 and msensor == 0:
-        print("Zone de capture détectée!")
-        set_led_color(0,0,255)
-        stop_thread = start_capture()
+    while True:
+        rsensor = GPIO.input(line_pin_right)
+        lsensor = GPIO.input(line_pin_left)
+        msensor = GPIO.input(line_pin_middle)
+        if verbose:
+            print('LF3: %d   LF2: %d   LF1: %d\n'%(rsensor,msensor,lsensor))
+        if lsensor==0 and msensor == 0 and rsensor == 0:
+            if not was_in_capture_zone:
+                was_in_capture_zone = True
+                print("Zone de capture détectée!")
+                #TODO publish to server
+                start_capture() # wait
+        else :
+            if was_in_capture_zone:
+                was_in_capture_zone = False
+                #TODO publish exit area
+
 
   
 # 5 sec countdown to capture flag
 def start_capture():
-  set_led_color(255,255,0)
   for i in range(5):
      time.sleep(1)
      print(f"{5-i}")
      if not( GPIO.input(line_pin_right) == 0 and GPIO.input(line_pin_left) == 0 and GPIO.input(line_pin_middle) == 0):
          return
   print(f"Drapeau capturée!")
-  set_led_color(0,255,0)
   return True
 
 
