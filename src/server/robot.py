@@ -56,8 +56,6 @@ def set_receive_infra(client):
 def set_motor():
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)
-    
-
     move.motorStop()
 
 

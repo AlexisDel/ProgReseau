@@ -62,9 +62,9 @@ def processData(client, userdata, message):
             else:
                 client.publish("tanks/"+querry[1]+"/init", "GAME_ALREADY_STARTED")
     else:
-        participant_id = message.topic[6:21]
+        participant_id = message.topic[6:20]
         if participant_id in participants.keys():
-            if message.topic[22:] == "flag":
+            if message.topic[21:] == "flag":
                 if querry[0] == "ENTER_FLAG_AREA":
                     if not any(participants[p]["flag"] for p in participants.keys()):
                         client.publish(message.topic, "START_CATCHING")
