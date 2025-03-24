@@ -92,6 +92,7 @@ def detect_zone_capture():
       rsensor = status_right #GPIO.input(line_pin_right)
       lsensor = status_left #GPIO.input(line_pin_left)
       msensor = status_middle #GPIO.input(line_pin_middle)
+      print('LF3: %d   LF2: %d   LF1: %d\n'%(status_right,status_middle,status_left))
 
       if rsensor==0 and lsensor == 0 and msensor == 0:
         launch_capture = True
