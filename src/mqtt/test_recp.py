@@ -3,10 +3,12 @@
 import random
 import os
 from paho.mqtt import client as mqtt_client
-from src.server import move, LED, infra
+from src.server import move, infra
+from src.server.LED import LED
 import RPi.GPIO as GPIO
 from src.rasptank import InfraLib
 import uuid
+from threading import Thread
 
 broker = '192.168.0.125' #''broker.emqx.io
 tankID = uuid.getnode()
@@ -36,25 +38,19 @@ def connect_mqtt() -> mqtt_client:
 def set_receive_infra(client):
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)
-
     IR_RECEIVER = 15
     GPIO.setup(IR_RECEIVER, GPIO.IN)
-    GPIO.add_event_detect(IR_RECEIVER, GPIO.FALLING, callback=lambda x: InfraLib.getSignal(IR_RECEIVER, client), bouncetime=100)
+    while True:
+        shooter = InfraLib.getSignal(IR_RECEIVER)
+        if shooter:
+            shooter = "0x" + str(shooter)[4:]
+            print(f"on était shooter par {shooter}")
+            client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
 
 def set_motor():
-    Motor_A_EN    = 7
-    Motor_B_EN    = 11
-
-    Motor_A_Pin1  = 8
-    Motor_A_Pin2  = 10
-    Motor_B_Pin1  = 13
-    Motor_B_Pin2  = 12
-    GPIO.setup(Motor_A_EN, GPIO.OUT)
-    GPIO.setup(Motor_B_EN, GPIO.OUT)
-    GPIO.setup(Motor_A_Pin1, GPIO.OUT)
-    GPIO.setup(Motor_A_Pin2, GPIO.OUT)
-    GPIO.setup(Motor_B_Pin1, GPIO.OUT)
-    GPIO.setup(Motor_B_Pin2, GPIO.OUT)
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    
 
     move.motorStop()
 
@@ -74,6 +70,7 @@ def subscribe(client: mqtt_client):
             if "stop" in msg.payload.decode("utf-8"):
                 move.stop()
             if "tir" in msg.payload.decode():
+                print(f"on est : {hex(tankID)} ")
                 infra.shoot()
                 led.blink(r=255, g=0, b=0, time_sec=0.2)
         if msg.topic == "tanks/id/init":
@@ -104,8 +101,9 @@ def subscribe(client: mqtt_client):
 def run():
     client = connect_mqtt()
     subscribe(client)
-    set_receive_infra(client)
-    set_motor()
+    t1 = Thread(target=set_receive_infra, args=(client,))
+    t1.start()
+    #set_motor()
     client.loop_forever()
 
 
