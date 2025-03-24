@@ -94,7 +94,7 @@ from PIL import Image, ImageTk
 from io import BytesIO
 from flask import Flask
 
-VIDEO_URL = "http://ip@:5000/video_feed"
+VIDEO_URL = "http://192.168.0.107:5000/video_feed"
 app = Flask(__name__)
 
 def run_flask():
