@@ -10,7 +10,7 @@ import uuid
 from threading import Thread
 
 broker = '192.168.0.125' #''broker.emqx.io
-tankID = uuid.getnode()
+tankID = hex(uuid.getnode())
 
 port = 1883
 topics = ["python/ctrlrobot", 
@@ -76,8 +76,14 @@ def subscribe(client: mqtt_client):
             if "stop" in message:
                 move.stop()
             if "tir" in message:
+                print(f"On a tiré : {tankID} ")
                 infra.shoot()
                 led.blink(r=255, g=0, b=0, time_sec=0.2)
+            if "INIT" in message:
+                result = client.publish(topic, f"INIT {tankID}")
+                status = result[0]
+                if status == 0:
+                    print(f"Send `{f"INIT {tankID}"}` to topic `{topic}`")
         if msg.topic == f"tanks/{tankID}/init":
             if "TEAM BLUE" in message:
                 led.blink(r=0, g=0, b=255, time_sec=1)
