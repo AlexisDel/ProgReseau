@@ -94,30 +94,26 @@ def detect_zone_capture():
       lsensor = GPIO.input(line_pin_left)
       msensor = GPIO.input(line_pin_middle)
       print('LF3: %d   LF2: %d   LF1: %d\n'%(status_right,status_middle,status_left))
-
+      set_led_color(0,0,255)
       if rsensor==0 and lsensor == 0 and msensor == 0:
-        """ launch_capture = True
+        launch_capture = True
         print("Zone de capture détectée!")
         set_led_color(0,0,255)
-        stop_thread = start_capture() """
-        if not launch_capture:
+        stop_thread = start_capture()
+        """  if not launch_capture:
                 launch_capture = True
                 print("Zone de capture détectée!")
-                set_led_color(0,0,255)
-                start_capture()
+                stop_thread= start_capture() """
         """  else:
         launch_capture = False """
   
 # 5 sec countdown to capture flag
 def start_capture():
-  global launch_capture
   set_led_color(255,255,0)
   for i in range(5):
      time.sleep(1)
      print(f"{5-i}")
      if not( GPIO.input(line_pin_right) == 0 and GPIO.input(line_pin_left) == 0 and GPIO.input(line_pin_middle) == 0):
-         launch_capture = False
-         print(f"left capture zone")
          return
   print(f"Drapeau capturée!")
   set_led_color(0,255,0)
