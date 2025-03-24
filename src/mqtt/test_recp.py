@@ -43,7 +43,7 @@ def set_receive_infra(client):
     while True:
         shooter = InfraLib.getSignal(IR_RECEIVER)
         if shooter:
-            shooter = str(shooter)[2:]
+            shooter = "0x" + str(shooter)[4:]
             print(f"on était shooter par {shooter}")
             client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
 
@@ -70,7 +70,7 @@ def subscribe(client: mqtt_client):
             if "stop" in msg.payload.decode("utf-8"):
                 move.stop()
             if "tir" in msg.payload.decode():
-                print(f"on est : {tankID} ")
+                print(f"on est : {hex(tankID)} ")
                 infra.shoot()
                 led.blink(r=255, g=0, b=0, time_sec=0.2)
         if msg.topic == "tanks/id/init":
