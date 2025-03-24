@@ -85,10 +85,11 @@ stop_thread = False
             
 def detect_zone_capture():
   global launch_capture, stop_thread
-  status_right = GPIO.input(line_pin_right)
-  status_middle = GPIO.input(line_pin_middle)
-  status_left = GPIO.input(line_pin_left)
+  
   while not stop_thread:
+      status_right = GPIO.input(line_pin_right)
+      status_middle = GPIO.input(line_pin_middle)
+      status_left = GPIO.input(line_pin_left)
       rsensor = status_right #GPIO.input(line_pin_right)
       lsensor = status_left #GPIO.input(line_pin_left)
       msensor = status_middle #GPIO.input(line_pin_middle)
