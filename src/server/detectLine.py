@@ -84,7 +84,7 @@ def set_led_color(R, G, B):
 def detect_zone_capture():
   global capture_flag, stop_thread
   setup()
-  while not stop_thread:
+  while not capture_flag:
       rsensor = GPIO.input(line_pin_right)
       lsensor = GPIO.input(line_pin_left)
       msensor = GPIO.input(line_pin_middle)
@@ -121,4 +121,4 @@ def start_detection():
     print("thread start function should be started?")
     detection_thread.join()
 
-start_detection()
+detect_zone_capture()
