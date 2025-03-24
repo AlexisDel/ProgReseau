@@ -35,7 +35,6 @@ def sent(msg):
     client.loop_start()
     time.sleep(1)
     
-    msg = f"{n}"
     result = client.publish(topic, msg)
         
     status = result[0]
