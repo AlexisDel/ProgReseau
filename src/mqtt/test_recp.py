@@ -7,6 +7,7 @@ from src.server import move, LED, infra
 import RPi.GPIO as GPIO
 from src.rasptank import InfraLib
 import uuid
+from threading import Thread
 
 broker = '192.168.0.125' #''broker.emqx.io
 tankID = uuid.getnode()
@@ -34,12 +35,12 @@ def connect_mqtt() -> mqtt_client:
     return client
 
 def set_receive_infra(client):
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BOARD)
-
     IR_RECEIVER = 15
     GPIO.setup(IR_RECEIVER, GPIO.IN)
-    GPIO.add_event_detect(IR_RECEIVER, GPIO.FALLING, callback=lambda x: InfraLib.getSignal(IR_RECEIVER, client), bouncetime=100)
+    while True:
+        shooter = InfraLib.getSignal(IR_RECEIVER)
+        print(shooter)
+        client.publish('tanks/id/shots', f'SHOT_BY {shooter}')
 
 def set_motor():
     Motor_A_EN    = 7
@@ -104,7 +105,9 @@ def subscribe(client: mqtt_client):
 def run():
     client = connect_mqtt()
     subscribe(client)
-    set_receive_infra(client)
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    Thread(set_receive_infra, client)
     set_motor()
     client.loop_forever()
 
