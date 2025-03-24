@@ -1,16 +1,11 @@
-#!/usr/bin/python3
-# File name   : LED.py
-# Description : WS_2812
-# Website     : based on the code from https://github.com/rpi-ws281x/rpi-ws281x-python/blob/master/examples/strandtest.py
-# Author      : original code by Tony DiCola (tony@tonydicola.com)
-# Date        : 2019/02/23
 import time
 from rpi_ws281x import *
 import argparse
+from src.server import move, infra, detectLine
 
 # LED strip configuration:
 LED_COUNT      = 12      # Number of LED pixels.
-LED_PIN        = 12      # GPIO pin connected to the pixels (18 uses PWM!).
+LED_PIN        = 18       # GPIO pin connected to the pixels (18 uses PWM!).
 #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
@@ -20,16 +15,13 @@ LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 class LED:
     def __init__(self):
-        self.LED_COUNT      = 16      # Number of LED pixels.
+        self.LED_COUNT      = 12      # Number of LED pixels.
         self.LED_PIN        = 12      # GPIO pin connected to the pixels (18 uses PWM!).
         self.LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-        self.LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
+        self.LED_DMA        = 5      # DMA channel to use for generating signal (try 10)
         self.LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
         self.LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
         self.LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
-        parser = argparse.ArgumentParser()
-        parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
-        args = parser.parse_args()
 
         # Create NeoPixel object with appropriate configuration.
         self.strip = Adafruit_NeoPixel(self.LED_COUNT, self.LED_PIN, self.LED_FREQ_HZ, self.LED_DMA, self.LED_INVERT, self.LED_BRIGHTNESS, self.LED_CHANNEL)
@@ -49,17 +41,19 @@ class LED:
         color = Color(R,G,B)
         for i in range(self.strip.numPixels()):
             self.strip.setPixelColor(i, color)
-            self.strip.show()
+        self.strip.show()
 
     def blink(self, r=0, g=0, b=0, time_sec=1):
-        self.colorWipe(r, g, b)
+        print(f"Blinking {self.strip.numPixels()} LEDs with color ({r}, {g}, {b})")
+        self.colorWipe(r, g, b)  # Turn ON all LEDs
         time.sleep(time_sec)
-        self.colorWipe(0, 0, 0)
+        print("Turning off LEDs")
+        self.colorWipe(0, 0, 0)  # Turn OFF all LEDs
 
     def blink_shot(self):
-        for _ in range(5):
-            self.blink(r=255, g=0, b=0, time_sec=0.2)
-            time.sleep(0.1)
+        for _ in range(2):
+            self.blink(r=255, g=0, b=0, time_sec=0.5)
+            time.sleep(0.5)
 
 if __name__ == '__main__':
     led = LED()
@@ -71,5 +65,6 @@ if __name__ == '__main__':
             time.sleep(1)  
             led.colorWipe(0, 0, 255)  # blue
             time.sleep(1) 
+            infra.shoot()
     except:  
         led.colorWipe(0,0,0)  # Lights out
