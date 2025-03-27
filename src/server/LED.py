@@ -49,7 +49,7 @@ class LED:
         color = Color(R,G,B)
         for i in range(self.strip.numPixels()):
             self.strip.setPixelColor(i, color)
-            self.strip.show()
+        self.strip.show()
 
     def blink(self, r=0, g=0, b=0, time_sec=1):
         print(f"Blinking {self.strip.numPixels()} LEDs with color ({r}, {g}, {b})")

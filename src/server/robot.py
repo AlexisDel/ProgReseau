@@ -1,5 +1,5 @@
 # python 3.11
-
+#sudo ../rasptank/bin/python3 -m src.server.robot
 import random
 import os
 from paho.mqtt import client as mqtt_client
@@ -80,7 +80,7 @@ def subscribe(client: mqtt_client):
             if "tir" in message:
                 print(f"On a tiré : {tankID} ")
                 infra.shoot()
-                t_led = Thread(target=led.blink, args=(255,0,0,2))
+                t_led = Thread(target=led.blink, args=(255,0,0,1))
                 t_led.start()
                 #led.blink(r=255, g=0, b=0, time_sec=2)
             if "INIT" in message:
