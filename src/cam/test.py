@@ -33,7 +33,23 @@ video_frame.grid(row=0, column=1)
 root.mainloop()  """
 
 from tkinter import *
-from tkinterweb import HtmlFrame
+import cv2
+from PIL import Image, ImageTk
+
+
+def update_frame():
+    ret, frame = cap.read()
+    if ret:
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        img = Image.fromarray(frame)
+        imgtk = ImageTk.PhotoImage(image=img)
+        video_label.imgtk = imgtk
+        video_label.configure(image=imgtk)
+    else:
+        print("⚠️ Warning: No frame received from stream!")
+
+    video_label.after(10, update_frame)
+
 
 VIDEO_URL = "http://172.20.10.2:5000/video_feed" 
 root = Tk()
@@ -43,7 +59,17 @@ root.geometry("1500x900")
 
 controls_frame = Frame(root, bg='green', width=400, height=900, padx=3, pady=3).grid(column = 1, row=0)
 video_frame = Frame(root, bg='black', width=1100, height=900, padx=3, pady=3).grid(column = 0, row=0)
+video_label = Label(video_frame, bg="black")
+video_label.grid(row=0, column=0, sticky="nsew")
 
-video_stream= HtmlFrame(video_frame)
-video_stream.load_website(VIDEO_URL)
+
+""" video_stream= HtmlFrame(video_frame)
+video_stream.load_website(VIDEO_URL) """
+
+cap = cv2.VideoCapture(VIDEO_URL)
+
+update_frame()
+
 root.mainloop()
+
+cap.release()
