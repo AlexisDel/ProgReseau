@@ -51,7 +51,7 @@ def update_frame():
     video_label.after(10, update_frame)
 
 
-VIDEO_URL = "http://172.20.10.2:5000/video_feed" 
+VIDEO_URL = "http://127.0.0.1:5000/video_feed" 
 root = Tk()
 root.title('Model Definition')
 root.resizable(width=FALSE, height=FALSE)
