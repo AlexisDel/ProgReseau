@@ -75,7 +75,7 @@ def key_press(event):
         sent(key_map[event.keysym])
 
 def key_release(event):
-    if event.keysym in ["z", "q", "d", "s", "t"]:
+    if event.keysym in ["z", "q", "d", "s"]:
         sent("stop")
 
 root = tk.Tk()
