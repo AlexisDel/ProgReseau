@@ -10,7 +10,7 @@ from src.rasptank import InfraLib
 import uuid
 from threading import Thread
 
-broker = '192.168.0.125' #''broker.emqx.io
+broker = 'broker.emqx.io' #''192.168.0.125
 tankID = hex(uuid.getnode())
 
 port = 1883
