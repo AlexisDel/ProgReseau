@@ -136,9 +136,9 @@ def run():
     subscribe(client)
     t1 = Thread(target=set_receive_infra, args=(client,))
     #TODO fix multithreading
-    #t2 = Thread(target=detectLine.detect_zone_capture, args=(client,), daemon=True)
+    t2 = Thread(target=detectLine.detect_zone_capture, args=(client,))
     t1.start()
-    #t2.start()
+    t2.start()
     #set_motor()
     client.loop_forever()
 
