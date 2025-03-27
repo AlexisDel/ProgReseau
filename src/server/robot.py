@@ -9,6 +9,7 @@ import RPi.GPIO as GPIO
 from src.rasptank import InfraLib
 import uuid
 from threading import Thread
+import time
 
 broker = 'broker.emqx.io' #''192.168.0.125
 tankID = hex(uuid.getnode())
@@ -79,7 +80,10 @@ def subscribe(client: mqtt_client):
             if "tir" in message:
                 print(f"On a tiré : {tankID} ")
                 infra.shoot()
-                led.blink(r=255, g=0, b=0, time_sec=0.2)
+                led.colorWipe(255, 0, 0) 
+                time.sleep(1)  
+                led.colorWipe(0, 0, 0)
+                #led.blink(r=255, g=0, b=0, time_sec=2)
             if "INIT" in message:
                 result = client.publish("init", f"INIT {tankID}")
                 status = result[0]
