@@ -52,8 +52,10 @@ class LED:
             self.strip.show()
 
     def blink(self, r=0, g=0, b=0, time_sec=1):
+        print(f"Led start {r,g,b,time_sec}")
         self.colorWipe(r, g, b)
         time.sleep(time_sec)
+        print("Led stop")
         self.colorWipe(0, 0, 0)
 
     def blink_shot(self):
