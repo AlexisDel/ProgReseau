@@ -1,26 +1,34 @@
 import io
 import time
-from picamera2 import Picamera2, Preview
+import cv2
+import numpy as np
+from picamera2 import Picamera2
 from base_camera import BaseCamera
 
 class Camera(BaseCamera):
     @staticmethod
     def frames():
-        with Picamera2() as camera:
-            camera.start()
+        picam = Picamera2()
+        picam.configure(picam.create_still_configuration())
+        picam.start()
+        time.sleep(2)
 
-            # let camera warm up
-            time.sleep(2) 
+        qr_detector = cv2.QRCodeDetector()
 
-            stream = io.BytesIO()
-            try:
-                while True:
-                    camera.capture_file(stream, format='jpeg')
-                    stream.seek(0)
-                    yield stream.read()
+        try:
+            while True:
+                frame = picam.capture_array()
 
-                    # reset stream for next frame
-                    stream.seek(0)
-                    stream.truncate()
-            finally:
-                camera.stop()
+                # Detect QR code
+                data, bbox, _ = qr_detector.detectAndDecode(frame)
+                if data:
+                    print(f"📷 QR Code detected: {data}")
+
+                # Encode frame to JPEG
+                ret, jpeg = cv2.imencode('.jpg', frame)
+                if not ret:
+                    continue
+
+                yield jpeg.tobytes()
+        finally:
+            picam.stop()
