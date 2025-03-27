@@ -62,7 +62,7 @@ def processData(client, userdata, message):
             else:
                 client.publish("tanks/"+querry[1]+"/init", "GAME_ALREADY_STARTED")
     else:
-        participant_id = message.topic[6:21]
+        participant_id = message.topic[6:20]
         if participant_id in participants.keys():
             if message.topic[22:] == "flag":
                 if querry[0] == "ENTER_FLAG_AREA":
@@ -84,7 +84,7 @@ def processData(client, userdata, message):
                         print(participant_id + " abort catching the flag, you exited the flag area")
                         participants[participant_id]["catching"] = False
 
-            elif message.topic[22:] == "shots":
+            elif message.topic[21:] == "shots":
                 if querry[0] == "SHOT_BY":
                     shot = querry[1][:4]
                     shooter = "0x" + querry[1][4:]
