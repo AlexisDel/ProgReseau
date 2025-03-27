@@ -47,8 +47,8 @@ class LED:
 
     def colorWipe(self, R, G, B):
         color = Color(R,G,B)
-        print(self.strip.numPixels())
         for i in range(self.strip.numPixels()):
+            print(self.strip)
             self.strip.setPixelColor(i, color)
             self.strip.show()
 
