@@ -7,6 +7,7 @@
 import time
 from rpi_ws281x import *
 import argparse
+from src.server import move, infra, detectLine
 
 # LED strip configuration:
 LED_COUNT      = 12      # Number of LED pixels.
@@ -73,5 +74,6 @@ if __name__ == '__main__':
             time.sleep(1)  
             led.colorWipe(0, 0, 255)  # blue
             time.sleep(1) 
+            infra.shoot()
     except:  
         led.colorWipe(0,0,0)  # Lights out
