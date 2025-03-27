@@ -10,7 +10,7 @@ import argparse
 
 # LED strip configuration:
 LED_COUNT      = 12      # Number of LED pixels.
-LED_PIN        = 12      # GPIO pin connected to the pixels (18 uses PWM!).
+LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
 #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
@@ -52,11 +52,11 @@ class LED:
             self.strip.show()
 
     def blink(self, r=0, g=0, b=0, time_sec=1):
-        print(f"Led start {r,g,b,time_sec}")
-        self.colorWipe(r, g, b)
+        print(f"Blinking {self.strip.numPixels()} LEDs with color ({r}, {g}, {b})")
+        self.colorWipe(r, g, b)  # Turn ON all LEDs
         time.sleep(time_sec)
-        print("Led stop")
-        self.colorWipe(0, 0, 0)
+        print("Turning off LEDs")
+        self.colorWipe(0, 0, 0)  # Turn OFF all LEDs
 
     def blink_shot(self):
         for _ in range(5):
