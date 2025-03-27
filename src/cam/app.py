@@ -1,37 +1,68 @@
-#!/usr/bin/env python
-from importlib import import_module
-import os
 from flask import Flask, render_template, Response
-
-# import camera driver
+import camera
 from camera import Camera
-
-# Raspberry Pi camera module (requires picamera package)
-# from camera_pi import Camera
+import threading
+import time
+import os
+import signal
 
 app = Flask(__name__)
-
+stream_active = False
+flask_thread = None
 
 @app.route('/')
 def index():
-    """Video streaming home page."""
     return render_template('index.html')
 
-
 def gen(camera):
-    """Video streaming generator function."""
-    yield b'--frame\r\n'
-    while True:
-        frame = camera.get_frame()
-        yield b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n--frame\r\n'
-
+    global stream_active
+    stream_active = True
+    try:
+        while True:
+            frame = camera.get_frame()
+            yield b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n--frame\r\n'
+    finally:
+        stream_active = False
 
 @app.route('/video_feed')
 def video_feed():
-    """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(Camera()),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True)
+def run_stream():
+    global flask_thread
+
+    def start_flask():
+        print("Flask server starting...")
+        os.environ['WERKZEUG_RUN_MAIN'] = 'true'  # Prevent double start
+        app.run(host='0.0.0.0', port=5000, threaded=True)
+
+    if not flask_thread or not flask_thread.is_alive():
+        flask_thread = threading.Thread(target=start_flask)
+        flask_thread.start()
+        time.sleep(1)
+
+def stop_stream():
+    print("Stopping Flask server...")
+    os.kill(os.getpid(), signal.SIGINT)
+
+def scan_code():
+    global stream_active
+
+    if not stream_active:
+        print("stream was off, turning on...")
+        run_stream()
+        time.sleep(1)
+
+    print("QR code scan enabled")
+    camera.scanned_result = None
+    camera.scanning_enabled = True
+
+    while True:
+        if camera.scanned_result:
+            print("QR Code scanned:", camera.scanned_result)
+            camera.scanning_enabled = False
+            return camera.scanned_result
+        time.sleep(0.2)
+
+run_stream()
