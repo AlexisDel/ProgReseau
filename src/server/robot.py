@@ -64,6 +64,7 @@ def set_motor():
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
+        global led
         message = msg.payload.decode("utf-8")
         print(f"Received `{message}` from `{msg.topic}` topic")
         if msg.topic == "python/ctrlrobot":
