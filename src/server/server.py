@@ -64,7 +64,7 @@ def processData(client, userdata, message):
     else:
         participant_id = message.topic[6:20]
         if participant_id in participants.keys():
-            if message.topic[22:] == "flag":
+            if message.topic[21:] == "flag":
                 if querry[0] == "ENTER_FLAG_AREA":
                     if not any(participants[p]["flag"] for p in participants.keys()):
                         client.publish(message.topic, "START_CATCHING")
@@ -108,7 +108,7 @@ def processData(client, userdata, message):
                                 client.publish("tanks/"+shooter+"/shots/out", "FRIENDLY_FIRE")
                                 print("Carefull " + shooter + ", friendly fire")
 
-            elif message.topic[22:] == "qr_code":
+            elif message.topic[21:] == "qr_code":
                 if querry[0] == "QR_CODE":
                     qr = querry[1]
                     if qr == qr_codes.get(participants[participant_id]["color"]):
@@ -149,6 +149,7 @@ if __name__ == "__main__":
 
     client = mqtt.Client()
     client.connect("broker.emqx.io")#192.168.0.100
+
 
     client.subscribe("init")
     client.subscribe("tanks/+/flag")

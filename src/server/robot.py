@@ -57,8 +57,6 @@ def set_receive_infra(client):
 def set_motor():
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)
-    
-
     move.motorStop()
 
 
@@ -104,14 +102,13 @@ def subscribe(client: mqtt_client):
         if msg.topic == f"tanks/{tankID}/flag":
             #TODO: fill in the blanks
             if "START_CATCHING" in message:
-                pass
+                led.blink(r=255,g=255,b=0, time_sec=1)
             if "FLAG_CATCHED" in message:
-                pass
+                led.blink(r=0,g=255,b=0, time_sec=1)
             if "ABORT_CATCHING_EXIT" in message:
-                pass
+                led.blink(r=255,g=255,b=0, time_sec=0.5)
             if "ABORT_CATCHING_SHOT" in message:
-                led.blink(r=255, g=0, b=0, time_sec=1)
-                pass
+                led.blink_shot()
             if "FLAG_LOST" in  message:
                 led.blink(r=255, g=0, b=0, time_sec=1)
             if "WIN_BLUE" in message:
@@ -138,7 +135,10 @@ def run():
     client = connect_mqtt()
     subscribe(client)
     t1 = Thread(target=set_receive_infra, args=(client,))
+    #TODO fix multithreading
+    t2 = Thread(target=detectLine.detect_zone_capture, args=(client,))
     t1.start()
+    t2.start()
     #set_motor()
     client.loop_forever()
 
