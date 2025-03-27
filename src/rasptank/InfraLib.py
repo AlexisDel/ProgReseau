@@ -137,7 +137,7 @@ class NEC():
 
 
 class IR():
-	def __init__(self, gpio_pin, protocol, protocol_config, verbose=True):
+	def __init__(self, gpio_pin, protocol, protocol_config, verbose=False):
 		self.verbose = verbose
 		if self.verbose:
 			print("Starting IR")

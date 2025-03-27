@@ -80,8 +80,8 @@ def subscribe(client: mqtt_client):
             if "tir" in message:
                 print(f"On a tiré : {tankID} ")
                 led.blink(r=255, g=0, b=0, time_sec=1)
-                t_infra = Thread(target=infra.shoot)
-                t_infra.start()
+                #t_infra = Thread(target=infra.shoot)
+                #t_infra.start()
             if "INIT" in message:
                 result = client.publish("init", f"INIT {tankID}")
                 status = result[0]
@@ -136,8 +136,8 @@ def subscribe(client: mqtt_client):
 def run():
     client = connect_mqtt()
     subscribe(client)
-    #t1 = Thread(target=set_receive_infra, args=(client,))
-    #t1.start()
+    t1 = Thread(target=set_receive_infra, args=(client,))
+    t1.start()
     #set_motor()
     client.loop_forever()
 
