@@ -35,7 +35,7 @@ root.mainloop()  """
 from tkinter import *
 from tkinterweb import HtmlFrame
 
-VIDEO_URL = "http://192.168.0.107:5000/video_feed" 
+VIDEO_URL = "http://172.20.10.2:5000/video_feed" 
 root = Tk()
 root.title('Model Definition')
 root.resizable(width=FALSE, height=FALSE)
