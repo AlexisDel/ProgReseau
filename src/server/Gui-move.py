@@ -1,11 +1,12 @@
 import tkinter as tk
 import random
 import time
+import os
 
 from paho.mqtt import client as mqtt_client
 
 #MQTT CONN
-broker = '192.168.0.125' #
+broker = 'broker.emqx.io' #192.168.0.125
 port = 1883
 topic = "python/ctrlrobot"
 # Generate a Client ID with the publish prefix.
@@ -62,6 +63,20 @@ def shoot():
 
     client.loop_stop()
 
+def key_press(event):
+    key_map = {
+        "z": "start",
+        "q": "left",
+        "d": "right",
+        "s": "back",
+        "t": "tir"
+    }
+    if event.keysym in key_map:
+        sent(key_map[event.keysym])
+
+def key_release(event):
+    if event.keysym in ["z", "q", "d", "s"]:
+        sent("stop")
 
 root = tk.Tk()
 root.title("Interface de Mouvement")
@@ -94,6 +109,10 @@ btn_extra.grid(row=4, column=2 )
 
 btn_shoot = tk.Button(frame, text="Tirer", command=shoot)
 btn_shoot.grid(row=4, column=1)
+
+os.system('xset r off')
+root.bind("<KeyPress>", key_press)
+root.bind("<KeyRelease>", key_release)
 
 root.mainloop()
 
