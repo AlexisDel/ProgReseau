@@ -3,6 +3,8 @@ import random
 import time
 import os
 from PIL import Image, ImageTk
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
 
 from paho.mqtt import client as mqtt_client
 
@@ -79,40 +81,53 @@ def key_release(event):
     if event.keysym in ["z", "q", "d", "s"]:
         sent("stop")
 
-root = tk.Tk()
-root.title("Interface de Mouvement")
+root = ttk.Window(themename="flatly") 
+root.title("Game Console")
 root.geometry("300x300")
-frame = tk.Frame(root)
+
+frame = ttk.Frame(root)
 frame.pack(expand=True)
 
-btn_up = tk.Button(frame, text="Haut")
+btn_up = ttk.Button(frame, text="Haut",bootstyle="primary-outline")
 btn_up.grid(row=0, column=1)
 btn_up.bind("<ButtonPress>", lambda event: sent("start"))
 btn_up.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_left = tk.Button(frame, text="Gauche")
+btn_left = ttk.Button(frame, text="Gauche",bootstyle="primary-outline")
 btn_left.grid(row=1, column=0)
 btn_left.bind("<ButtonPress>", lambda event: sent("left"))
 btn_left.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_right = tk.Button(frame, text="Droite")
+btn_right = ttk.Button(frame, text="Droite",bootstyle="primary-outline")
 btn_right.grid(row=1, column=2)
 btn_right.bind("<ButtonPress>", lambda event: sent("right"))
 btn_right.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_down = tk.Button(frame, text="Bas")
+btn_down = ttk.Button(frame, text="Bas",bootstyle="primary-outline")
 btn_down.grid(row=2, column=1)
 btn_down.bind("<ButtonPress>", lambda event: sent("back"))
 btn_down.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-power_img = Image.open("power_button.png")
-power_img = power_img.resize((40, 40), Image.ANTIALIAS)  # Resize if needed
+current_dir = os.path.dirname(__file__)
+img_path = os.path.join(current_dir, "power_button.png")
+
+power_img = Image.open(img_path)
+resample_filter = Image.Resampling.LANCZOS if hasattr(Image, 'Resampling') else Image.ANTIALIAS
+power_img = power_img.resize((30, 30), resample_filter)
 power_icon = ImageTk.PhotoImage(power_img)
 
-btn_extra = tk.Button(frame, image=power_icon, command=lambda: sent("INIT"))
-btn_extra.image = power_icon  # prevent garbage collectionbtn_extra.grid(row=4, column=2 )
+canvas = tk.Canvas(frame, width=40, height=40, highlightthickness=0, bg="white", bd=0)
+canvas.grid(row=4, column=2,  pady=(10, 0))
 
-btn_shoot = tk.Button(frame, text="Tirer", command=shoot)
+canvas.create_image(0, 0, anchor="nw", image=power_icon)
+
+def on_click(event):
+    sent("INIT")
+
+canvas.bind("<Button-1>", on_click)
+
+
+btn_shoot = ttk.Button(frame, text="Tirer", command=shoot)
 btn_shoot.grid(row=4, column=1)
 
 os.system('xset r off')
