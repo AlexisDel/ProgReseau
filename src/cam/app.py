@@ -58,7 +58,7 @@ def scan_code():
     camera.scanned_result = None
     camera.scanning_enabled = True
 
-    while True:
+    while camera.scanning_enabled:
         if camera.scanned_result:
             print("QR Code scanned:", camera.scanned_result)
             camera.scanning_enabled = False

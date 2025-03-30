@@ -41,8 +41,15 @@ class Camera(BaseCamera):
 
     @staticmethod
     def scan_qr_code(timeout=10):
-        qr_detector = cv2.QRCodeDetector()
-        with picamera.PiCamera() as camera:
+        global scanning_enabled, scanned_result
+        scanned_result = None
+        scanning_enabled = True
+        while scanning_enabled:
+            if scanned_result:
+                scanning_enabled   = False
+                return scanned_result
+        """qr_detector = cv2.QRCodeDetector()
+         with picamera.PiCamera() as camera:
             camera.resolution = (640, 480)
             camera.framerate = 24
             time.sleep(2)
@@ -56,5 +63,5 @@ class Camera(BaseCamera):
                         return data
                     output.truncate(0)
                     if time.time() - start > timeout:
-                        break
+                        break """
         return None
