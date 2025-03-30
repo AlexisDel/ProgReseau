@@ -65,4 +65,5 @@ def scan_code():
             return camera.scanned_result
         time.sleep(0.2)
 
-run_stream()
+if __name__ == "__main__":
+    run_stream()
