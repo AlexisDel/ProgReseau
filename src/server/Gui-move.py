@@ -2,6 +2,7 @@ import tkinter as tk
 import random
 import time
 import os
+from PIL import Image, ImageTk
 
 from paho.mqtt import client as mqtt_client
 
@@ -104,8 +105,12 @@ btn_down.grid(row=2, column=1)
 btn_down.bind("<ButtonPress>", lambda event: sent("back"))
 btn_down.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_extra = tk.Button(frame, text="INIT", command= lambda: sent("INIT"))
-btn_extra.grid(row=4, column=2 )
+power_img = Image.open("power_button.png")
+power_img = power_img.resize((40, 40), Image.ANTIALIAS)  # Resize if needed
+power_icon = ImageTk.PhotoImage(power_img)
+
+btn_extra = tk.Button(frame, image=power_icon, command=lambda: sent("INIT"))
+btn_extra.image = power_icon  # prevent garbage collectionbtn_extra.grid(row=4, column=2 )
 
 btn_shoot = tk.Button(frame, text="Tirer", command=shoot)
 btn_shoot.grid(row=4, column=1)

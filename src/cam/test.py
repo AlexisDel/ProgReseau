@@ -2,6 +2,9 @@ from tkinter import *
 import cv2
 from PIL import Image, ImageTk
 
+# sudo apt-get install libx264-dev libjpeg-dev
+# sudo apt-get install gstreamer1.0-tools
+# gst-launch-1.0 videotestsrc ! videoconvert ! autovideosink
 
 def update_frame():
     ret, frame = cap.read()
