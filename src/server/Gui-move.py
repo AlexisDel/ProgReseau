@@ -1,6 +1,11 @@
 import tkinter as tk
 import random
 import time
+from PIL import Image, ImageTk
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
+import cv2
+from threading import Thread
 import os
 
 from paho.mqtt import client as mqtt_client
@@ -81,38 +86,134 @@ def key_release(event):
 root = tk.Tk()
 root.title("Interface de Mouvement")
 root.geometry("300x300")
-frame = tk.Frame(root)
+
+frame = ttk.Frame(root)
 frame.pack(expand=True)
 
-btn_up = tk.Button(frame, text="Haut")
+""" # === Video Feed Frame ===
+video_label = ttk.Label(frame)
+video_label.grid(row=0, column=0, columnspan=3, pady=10)
+ """
+btn_up = ttk.Button(frame, text="Haut",bootstyle="primary-outline")
 btn_up.grid(row=0, column=1)
 btn_up.bind("<ButtonPress>", lambda event: sent("start"))
 btn_up.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_left = tk.Button(frame, text="Gauche")
+btn_left = ttk.Button(frame, text="Gauche",bootstyle="primary-outline")
 btn_left.grid(row=1, column=0)
 btn_left.bind("<ButtonPress>", lambda event: sent("left"))
 btn_left.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_right = tk.Button(frame, text="Droite")
+btn_right = ttk.Button(frame, text="Droite",bootstyle="primary-outline")
 btn_right.grid(row=1, column=2)
 btn_right.bind("<ButtonPress>", lambda event: sent("right"))
 btn_right.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_down = tk.Button(frame, text="Bas")
+btn_down = ttk.Button(frame, text="Bas",bootstyle="primary-outline")
 btn_down.grid(row=2, column=1)
 btn_down.bind("<ButtonPress>", lambda event: sent("back"))
 btn_down.bind("<ButtonRelease>", lambda event: sent("stop"))
 
-btn_extra = tk.Button(frame, text="INIT", command= lambda: sent("INIT"))
-btn_extra.grid(row=4, column=2 )
+current_dir = os.path.dirname(__file__)
+img_path = os.path.join(current_dir, "power_button.png")
 
-btn_shoot = tk.Button(frame, text="Tirer", command=shoot)
+power_img = Image.open(img_path)
+resample_filter = Image.Resampling.LANCZOS if hasattr(Image, 'Resampling') else Image.ANTIALIAS
+power_img = power_img.resize((30, 30), resample_filter)
+power_icon = ImageTk.PhotoImage(power_img)
+
+canvas = tk.Canvas(frame, width=40, height=40, highlightthickness=0, bg="white", bd=0)
+canvas.grid(row=4, column=2,  pady=(10, 0))
+
+canvas.create_image(0, 0, anchor="nw", image=power_icon)
+
+def on_click(event):
+    sent("INIT")
+
+canvas.bind("<Button-1>", on_click)
+
+
+btn_shoot = ttk.Button(frame, text="Tirer", command=shoot)
 btn_shoot.grid(row=4, column=1)
+
+
+btn_scan = ttk.Button(frame, text="Scan")
+btn_scan.grid(row=4, column=3)
+btn_scan.bind("<ButtonPress>", lambda event: sent("scan"))
 
 os.system('xset r off')
 root.bind("<KeyPress>", key_press)
 root.bind("<KeyRelease>", key_release)
 
+#Thread(target=update_video, daemon=True).start()
+
 root.mainloop()
 
+
+"""
+root = ttk.Window(themename="flatly") 
+root.title("Game Console")
+root.geometry("720x600")
+
+frame = ttk.Frame(root)
+frame.pack(expand=True)
+
+# === Video Feed Frame ===
+video_label = ttk.Label(frame)
+video_label.grid(row=0, column=0, columnspan=3, pady=10)
+
+btn_up = ttk.Button(frame, text="Haut",bootstyle="primary-outline")
+btn_up.grid(row=1, column=1)
+btn_up.bind("<ButtonPress>", lambda event: sent("start"))
+btn_up.bind("<ButtonRelease>", lambda event: sent("stop"))
+
+btn_left = ttk.Button(frame, text="Gauche",bootstyle="primary-outline")
+btn_left.grid(row=2, column=0)
+btn_left.bind("<ButtonPress>", lambda event: sent("left"))
+btn_left.bind("<ButtonRelease>", lambda event: sent("stop"))
+
+btn_right = ttk.Button(frame, text="Droite",bootstyle="primary-outline")
+btn_right.grid(row=2, column=2)
+btn_right.bind("<ButtonPress>", lambda event: sent("right"))
+btn_right.bind("<ButtonRelease>", lambda event: sent("stop"))
+
+btn_down = ttk.Button(frame, text="Bas",bootstyle="primary-outline")
+btn_down.grid(row=3, column=1)
+btn_down.bind("<ButtonPress>", lambda event: sent("back"))
+btn_down.bind("<ButtonRelease>", lambda event: sent("stop"))
+
+current_dir = os.path.dirname(__file__)
+img_path = os.path.join(current_dir, "power_button.png")
+
+power_img = Image.open(img_path)
+resample_filter = Image.Resampling.LANCZOS if hasattr(Image, 'Resampling') else Image.ANTIALIAS
+power_img = power_img.resize((30, 30), resample_filter)
+power_icon = ImageTk.PhotoImage(power_img)
+
+canvas = tk.Canvas(frame, width=40, height=40, highlightthickness=0, bg="white", bd=0)
+canvas.grid(row=4, column=2,  pady=(10, 0))
+
+canvas.create_image(0, 0, anchor="nw", image=power_icon)
+
+def on_click(event):
+    sent("INIT")
+
+canvas.bind("<Button-1>", on_click)
+
+
+btn_shoot = ttk.Button(frame, text="Tirer", command=shoot)
+btn_shoot.grid(row=4, column=1)
+
+
+btn_scan = ttk.Button(frame, text="Scan")
+btn_scan.grid(row=4, column=2)
+btn_scan.bind("<ButtonPress>", lambda event: sent("scan"))
+
+os.system('xset r off')
+root.bind("<KeyPress>", key_press)
+root.bind("<KeyRelease>", key_release)
+
+Thread(target=update_video, daemon=True).start()
+
+
+"""

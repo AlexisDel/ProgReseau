@@ -5,6 +5,7 @@ import os
 from paho.mqtt import client as mqtt_client
 from src.server import move, infra, detectLine
 from src.server.LED import LED
+from src.cam.app import scan_code
 import RPi.GPIO as GPIO
 from src.rasptank import InfraLib
 import uuid
@@ -60,6 +61,7 @@ def set_motor():
     move.motorStop()
 
 
+
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         global led
@@ -81,6 +83,9 @@ def subscribe(client: mqtt_client):
                 led.blink(r=255, g=0, b=0, time_sec=1)
                 infra.shoot()
                 led = LED()
+            if "scan" in message:
+                qr_code = scan_code()
+                client.publish(f"tanks/{tankID}/qr_code", f"QR_CODE {qr_code}")
             if "INIT" in message:
                 result = client.publish("init", f"INIT {tankID}")
                 status = result[0]
@@ -112,14 +117,15 @@ def subscribe(client: mqtt_client):
             if "FLAG_LOST" in  message:
                 led.blink(r=255, g=0, b=0, time_sec=1)
             if "WIN_BLUE" in message:
-                pass
+                led.blink(r=0, g=0, b=255, time_sec=3)
             if "WIN_RED" in message:
-                pass
+                led.blink(r=255, g=0, b=0, time_sec=3)
         if msg.topic == f"tanks/{tankID}/qr_code" :
             if "SCAN_SUCCESSFUL" in message:
+                # if you have drapeau : flg deposited else no_flag received
                 pass
             if "SCAN_FAILED" in message:
-                pass
+                led.blink(r=255, g=0, b=0, time_sec=1)
             if "FLAG_DEPOSITED" in message:
                 pass
             if "NO_FLAG" in message:
