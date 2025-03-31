@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import picamera
 import picamera.array
-from base_camera import BaseCamera
+from src.cam.base_camera import BaseCamera
 
 scanning_enabled = False
 scanned_result = None

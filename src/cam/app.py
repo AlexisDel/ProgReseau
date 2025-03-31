@@ -1,6 +1,5 @@
 from flask import Flask, render_template, Response
-import camera
-from camera import Camera
+from src.cam.camera import Camera
 import threading
 import time
 import os
@@ -34,7 +33,7 @@ def run_stream():
 
     def start_flask():
         print("Flask server starting...")
-        os.environ['WERKZEUG_RUN_MAIN'] = 'true'  # Prevent double start
+        #os.environ['WERKZEUG_RUN_MAIN'] = 'true'  # Prevent double start
         app.run(host='0.0.0.0', port=5000, threaded=True)
 
     if not flask_thread or not flask_thread.is_alive():
