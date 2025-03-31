@@ -6,13 +6,15 @@ import picamera
 import picamera.array
 from src.cam.base_camera import BaseCamera
 
-scanning_enabled = False
-scanned_result = None
+
 
 class Camera(BaseCamera):
+    scanning_enabled = False
+    scanned_result = None
+
     @staticmethod
     def frames():
-        global scanning_enabled, scanned_result
+        #global scanning_enabled, scanned_result
         with picamera.PiCamera() as camera:
             camera.resolution = (640, 480)
             camera.framerate = 24
@@ -26,12 +28,12 @@ class Camera(BaseCamera):
                 data = np.frombuffer(stream.read(), dtype=np.uint8)
                 image = cv2.imdecode(data, 1)
 
-                if scanning_enabled:
+                if Camera.scanning_enabled:
                     data, _, _ = qr_detector.detectAndDecode(image)
                     if data:
                         print("QR Code scanned:", data)
-                        scanned_result = data  
-                        scanning_enabled = False
+                        Camera.scanned_result = data  
+                        Camera.scanning_enabled = False
 
                 ret, jpeg = cv2.imencode('.jpg', image)
                 stream.seek(0)
@@ -41,11 +43,11 @@ class Camera(BaseCamera):
 
     @staticmethod
     def scan_qr_code(timeout=10):
-        global scanning_enabled, scanned_result
-        scanning_enabled = True
-        while scanning_enabled:
-            if scanned_result:
-                scanning_enabled   = False
-                return scanned_result
+        #global scanning_enabled, scanned_result
+        Camera.scanning_enabled = True
+        while Camera.scanning_enabled:
+            if Camera.scanned_result:
+                Camera.scanning_enabled   = False
+                return Camera.scanned_result
 
         return None
