@@ -56,11 +56,12 @@ def scan_code():
         time.sleep(1)
 
     print("QR code scan enabled")
-    Camera.scanned_result = None
+    #Camera.scanned_result = None
     Camera.scanning_enabled = True
     while Camera.scanning_enabled:
         if Camera.scanned_result:
-            print("QR Code scanned:", Camera.scanned_result)
+            print("boo")
+            #print("QR Code scanned:", Camera.scanned_result)
             Camera.scanning_enabled = False
             return Camera.scanned_result
         time.sleep(0.2)

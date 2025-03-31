@@ -9,8 +9,10 @@ from src.cam.base_camera import BaseCamera
 
 
 class Camera(BaseCamera):
-    scanning_enabled = False
-    scanned_result = None
+
+    def __init__(self):
+        self.scanning_enabled = False
+        self.scanned_result = None
 
     @staticmethod
     def frames():
