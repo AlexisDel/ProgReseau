@@ -1,12 +1,12 @@
 import tkinter as tk
 import random
 import time
-import os
 from PIL import Image, ImageTk
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import cv2
 from threading import Thread
+import os
 
 from paho.mqtt import client as mqtt_client
 
@@ -83,29 +83,8 @@ def key_release(event):
     if event.keysym in ["z", "q", "d", "s"]:
         sent("stop")
 
-""" def update_video():
-    pipeline = (
-        "udpsrc port=5000 caps=application/x-rtp,encoding-name=H264,payload=96 ! "
-        "rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink"
-    )
-    cap = cv2.VideoCapture(pipeline, cv2.CAP_GSTREAMER)
-
-    if not cap.isOpened():
-        print("❌ Failed to open video stream")
-        return
-
-    while True:
-        ret, frame = cap.read()
-        if ret:
-            frame = cv2.resize(frame, (640, 360))
-            img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            img = ImageTk.PhotoImage(Image.fromarray(img))
-            video_label.imgtk = img
-            video_label.config(image=img)
-        time.sleep(0.03)
- """
-root = ttk.Window(themename="flatly") 
-root.title("Game Console")
+root = tk.Tk()
+root.title("Interface de Mouvement")
 root.geometry("300x300")
 
 frame = ttk.Frame(root)
