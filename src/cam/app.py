@@ -59,7 +59,7 @@ def scan_code():
     print("QR code scan enabled")
     #Camera.scanned_result = None
     cam.scanning_enabled = True
-    while cam.scanning_enabled:
+    while True:
         if cam.scanned_result:
             print("boo")
             #print("QR Code scanned:", cam.scanned_result)
@@ -67,5 +67,6 @@ def scan_code():
             return cam.scanned_result
         time.sleep(0.2)
 
+
 if __name__ == "__main__":
-    scan_code()
+    result = scan_code()

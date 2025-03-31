@@ -11,11 +11,10 @@ from src.cam.base_camera import BaseCamera
 class Camera(BaseCamera):
 
     def __init__(self):
-        super().__init__()
         self.scanning_enabled = False
         self.scanned_result = None
+        super().__init__()
 
-    @staticmethod
     def frames(self):
         #global scanning_enabled, scanned_result
         with picamera.PiCamera() as camera:
@@ -44,7 +43,6 @@ class Camera(BaseCamera):
                 if ret:
                     yield jpeg.tobytes()
 
-    @staticmethod
     def scan_qr_code(self, timeout=10):
         #global scanning_enabled, scanned_result
         self.scanning_enabled = True
