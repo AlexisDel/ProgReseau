@@ -8,7 +8,7 @@ import sys
 #blueTeamQRCode = "0x4d61792074686520666f726365206265207769746820796f7521"
 #redTeamQRCode = "0x596f7520646f6e2774206b6e6f772074686520706f776572206f6620746865206461726b207369646521"
 
-qr_codes = {"RED": "Hello_World", "BLUE": "Hello_World"}
+qr_codes = {"RED": "RED_BASE", "BLUE": "BLUE_BASE"}
 weapons = {"0xf1": "Laser Gun"}
 
 def assignToTeam(id):
