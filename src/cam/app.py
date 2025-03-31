@@ -46,7 +46,7 @@ def run_stream():
 
 def stop_stream():
     print("Stopping Flask server...")
-    os.kill(os.getpid(), signal.SIGINT)
+    #os.kill(os.getpid(), signal.SIGINT)
 
 def scan_code():
     global stream_active, cam
