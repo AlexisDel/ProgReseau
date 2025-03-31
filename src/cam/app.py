@@ -10,7 +10,7 @@ import signal
 app = Flask(__name__)
 stream_active = False
 flask_thread = None
-
+cam = Camera()
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -27,7 +27,8 @@ def gen(camera):
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
+    global cam
+    return Response(gen(cam), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 def run_stream():
@@ -48,7 +49,7 @@ def stop_stream():
     os.kill(os.getpid(), signal.SIGINT)
 
 def scan_code():
-    global stream_active
+    global stream_active, cam
 
     if not stream_active:
         print("stream was off, turning on...")
@@ -57,13 +58,13 @@ def scan_code():
 
     print("QR code scan enabled")
     #Camera.scanned_result = None
-    Camera.scanning_enabled = True
-    while Camera.scanning_enabled:
-        if Camera.scanned_result:
+    cam.scanning_enabled = True
+    while cam.scanning_enabled:
+        if cam.scanned_result:
             print("boo")
-            #print("QR Code scanned:", Camera.scanned_result)
-            Camera.scanning_enabled = False
-            return Camera.scanned_result
+            #print("QR Code scanned:", cam.scanned_result)
+            cam.scanning_enabled = False
+            return cam.scanned_result
         time.sleep(0.2)
 
 if __name__ == "__main__":
