@@ -5,7 +5,7 @@ import os
 from paho.mqtt import client as mqtt_client
 from src.server import move, infra, detectLine
 from src.server.LED import LED
-from src.cam.app import scan_code
+from src.cam.app import scan_code, run_stream
 import RPi.GPIO as GPIO
 from src.rasptank import InfraLib
 import uuid
@@ -86,6 +86,8 @@ def subscribe(client: mqtt_client):
             if "scan" in message:
                 qr_code = scan_code()
                 client.publish(f"tanks/{tankID}/qr_code", f"QR_CODE {qr_code}")
+            if "cam" in message:
+                run_stream()
             if "INIT" in message:
                 result = client.publish("init", f"INIT {tankID}")
                 status = result[0]
