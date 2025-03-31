@@ -61,6 +61,7 @@ def set_motor():
     move.motorStop()
 
 
+
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         global led
@@ -82,6 +83,9 @@ def subscribe(client: mqtt_client):
                 led.blink(r=255, g=0, b=0, time_sec=1)
                 infra.shoot()
                 led = LED()
+            if "scan" in message:
+                qr_code = scan_code()
+                client.publish(f"tanks/{tankID}/qr_code", f"QR_CODE {qr_code}")
             if "INIT" in message:
                 result = client.publish("init", f"INIT {tankID}")
                 status = result[0]
@@ -104,11 +108,6 @@ def subscribe(client: mqtt_client):
             #TODO: fill in the blanks
             if "START_CATCHING" in message:
                 led.blink(r=255,g=255,b=0, time_sec=1)
-                qr_code = scan_code()
-                if qr_code:
-                    client.publish(f"tanks/{tankID}/qr_code", f"QR_CODE {qr_code}")
-                else:
-                    client.publish(f"tanks/{tankID}/qr_code", "QR_CODE FAILED")
             if "FLAG_CATCHED" in message:
                 led.blink(r=0,g=255,b=0, time_sec=1)
             if "ABORT_CATCHING_EXIT" in message:
