@@ -1,9 +1,11 @@
 from flask import Flask, render_template, Response
+import src.cam.camera as camera
 from src.cam.camera import Camera
 import threading
 import time
 import os
 import signal
+#sudo ../rasptank/bin/python3 -m src.cam.app
 
 app = Flask(__name__)
 stream_active = False
@@ -65,4 +67,4 @@ def scan_code():
         time.sleep(0.2)
 
 if __name__ == "__main__":
-    run_stream()
+    scan_code()
