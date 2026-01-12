@@ -5,7 +5,7 @@
     - Installation de Raspberry Pi OS
     - Installation des librairies nécessaires au projet
 - Mise en place de l'environnement de développement via SSH
-- Début de la programmation
+- Programmer les fonctions de base (déplacement, contrôle des servos, des LEDs, …)
 
 :warning: **Note** : Les "lessons" font référence aux tutoriels d'Adeept disponibles [ici](https://www.adeept.com/video/static1/itemsfile/901RaspTank%20Tutorials.zip), trouvables dans le dossier "*2 Basic course*"
 
@@ -40,26 +40,33 @@
 
 ## 3. Installation des librairies nécessaires au projet
 
-:warning: Connectez-vous à un réseau Wifi avant de poursuivre
+:warning: Connectez-vous à un réseau Wi-Fi avant de poursuivre
 
-1. Créez un environnement virtuel Python nommé "rasptank" :
+1. Créez un environnement virtuel Python 3.8 nommé **"rasptank"**.
+
+Pour ça, vous pouvez utiliser **conda**, **pyenv** ou compiler **Python 3.8** depuis les sources, car ce paquet n’est pas disponible dans les dépôts de **Debian 13** et une installation via `apt install python3.8` ne fonctionnera pas.
+
+
+2. Activez l’environnement virtuel :
+
+   * Si vous utilisez **venv** :
+
+     ```bash
+     source rasptank/bin/activate
+     ```
+
+   * Si vous utilisez **conda** :
+
+     ```bash
+     conda activate rasptank
+     ```
+
+3. Installez les bibliothèques qui se trouvent dans le fichier **requirements.txt** de ce dépôt Git :
 
    ```bash
-   python3 -m venv rasptank
+   pip install -r requirements.txt
    ```
 
-2. Activez l'environnement virtuel :
-
-   ```bash
-   source rasptank/bin/activate
-   ```
-
-3. Installez les bibliothèques suivantes :
-
-   ```bash
-   pip3 install adafruit-circuitpython-pca9685
-   pip3 install adafruit-circuitpython-motorkit
-   ```
 
 ## 4. Mise en place de l'environnement de développement via SSH
 
@@ -95,3 +102,5 @@ Voici une liste des fonctionnalités que vous pouvez commencer à implémenter :
 - Détecter le passage d'une zone noire à une zone blanche, pour la zone de capture du drapeau.
 
 Le but n'est pas de suivre chaque tutoriel à la lettre, mais plutôt de comprendre comment réaliser des actions spécifiques, comme allumer les LEDs d'une certaine couleur ou faire avancer le robot. Cela vous permettra de créer votre programme robot.py, qui sera le programme exécuté sur votre robot pour le contrôler.
+
+:warning: Pour vous éviter de recopier le code des tutos à la main, vous pouvez trouver le code ici : [Github Adeept](https://github.com/adeept/Adeept_RaspTank/)
