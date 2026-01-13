@@ -7,9 +7,6 @@
 3) Installez Tailscale sur votre robot et récupérez son adresse IP :
 
 ```bash
-sudo apt-get install apt-transport-https
-curl -fsSL https://pkgs.tailscale.com/stable/raspbian/bullseye.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
-curl -fsSL https://pkgs.tailscale.com/stable/raspbian/bullseye.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update
 sudo apt install tailscale
 sudo tailscale up
