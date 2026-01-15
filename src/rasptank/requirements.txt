@@ -11,3 +11,4 @@ zmq
 pybase64
 psutil
 luma.oled
+RPi.GPIO
