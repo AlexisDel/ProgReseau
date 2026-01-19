@@ -38,7 +38,24 @@
 
 :white_check_mark: Vous pouvez maintenant redémarrer le Raspberry Pi
 
-## 3. Installation des librairies nécessaires au projet
+
+## 3. Mise en place de l'environnement de développement via SSH
+
+:warning: Les réseaux `eduspot` et `edurom` isolent chaque appareil sur le réseau, rendant impossible la connexion SSH au Rasptank. Pour utiliser SSH, connectez-vous au réseau suivant :
+
+SSID : `TP-Link_AC96`
+
+Mot de passe : `51313296`
+
+Suivre le "tuto Tailscale" sur le git
+
+Ce réseau n'a pas d'accès à Internet :confused:. Vous pouvez également utiliser le partage de connexion de votre téléphone.
+
+Si besoin, voir : [Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh)
+
+**Note** : Assurez-vous d'activer le SSH sur le Raspberry Pi
+
+## 4. Installation des librairies nécessaires au projet
 
 :warning: Connectez-vous à un réseau Wi-Fi avant de poursuivre
 
@@ -67,20 +84,6 @@ Pour ça, vous pouvez utiliser **conda**, **pyenv** ou compiler **Python 3.8** d
    pip install -r requirements.txt
    ```
 
-
-## 4. Mise en place de l'environnement de développement via SSH
-
-:warning: Les réseaux `eduspot` et `edurom` isolent chaque appareil sur le réseau, rendant impossible la connexion SSH au Rasptank. Pour utiliser SSH, connectez-vous au réseau suivant :
-
-SSID : `TP-Link_AC96`
-
-Mot de passe : `51313296`
-
-Ce réseau n'a pas d'accès à Internet :confused:. Vous pouvez également utiliser le partage de connexion de votre téléphone.
-
-Si besoin, voir : [Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh)
-
-**Note** : Assurez-vous d'activer le SSH sur le Raspberry Pi
 
 ## 5. Commencer à programmer
 

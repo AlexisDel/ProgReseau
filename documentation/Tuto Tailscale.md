@@ -8,7 +8,7 @@
 
 ```bash
 sudo apt update
-sudo apt install tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
 sudo tailscale up --ssh
 tailscale ip -4
