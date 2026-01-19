@@ -10,7 +10,6 @@
 sudo apt update
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
-sudo tailscale up --ssh
 tailscale ip -4
 ```
 
@@ -18,6 +17,9 @@ tailscale ip -4
 
 Votre robot et votre PC sont maintenant connectés sur le même VPN (Virtual Private Network). Vous pouvez donc accéder à votre robot via l'adresse IP donnée par Tailscale, même s'il se trouve chez votre binôme (à condition qu'il soit allumé, bien sûr).
 
-Pour que votre binôme ait accès au robot, il doit lui aussi créer un compte Tailscale et installer l'application. Vous devrez ensuite l'inviter dans votre réseau. Voir : [https://tailscale.com/kb/1271/invite-any-user](https://tailscale.com/kb/1271/invite-any-user)
+Pour que votre binôme ait accès au robot, il doit lui aussi créer un compte Tailscale et installer l'application. Vous devrez ensuite partager le raspberry avec lui. Voir : [https://tailscale.com/kb/1084/sharing](https://tailscale.com/kb/1084/sharing)
+
+:warning: Il existe une option SSH « intégrée » à Tailscale, activable via la commande `tailscale up --ssh`. Il NE FAUT PAS l’activer !
+
 
 **Référence** : [https://tailscale.com/learn/how-to-ssh-into-a-raspberry-pi](https://tailscale.com/learn/how-to-ssh-into-a-raspberry-pi)
